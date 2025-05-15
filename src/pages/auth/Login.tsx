@@ -26,7 +26,7 @@ export default function Login() {
   return (
     <>
       <SEO 
-        title="Iniciar sesión" 
+        title="Iniciar sesión | Plataforma Educativa de Matemáticas" 
         description="Inicia sesión en la plataforma educativa para acceder a todos los módulos de matemáticas."
         keywords="login, iniciar sesión, matemáticas, educación"
         url="https://matematicas-732ff.web.app/login"
