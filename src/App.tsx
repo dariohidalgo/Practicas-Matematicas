@@ -30,6 +30,8 @@ import ListaActividadesNumerosRacionales from "./modules/numeros-racionales/List
 import ActividadNumerosRacionales from "./modules/numeros-racionales/Actividad"
 import ListaActividadesAritmetica from "./modules/aritmetica/ListaActividades"
 import ActividadAritmetica from "./modules/aritmetica/Actividad"
+import ActividadDivisibilidad from "./modules/aritmetica/Actividad2"
+import ActividadMCDMCM from "./modules/aritmetica/Actividad3"
 import GuiaNumerosNaturales from "./modules/aritmetica/GuiaNumerosNaturales"
 import CalculadoraInteractiva from "./modules/aritmetica/CalculadoraInteractiva"
 
@@ -73,6 +75,8 @@ function App() {
           <Route path="/modulos/aritmetica" element={<IntroduccionAritmetica />} />
           <Route path="/modulos/aritmetica/actividades" element={<ListaActividadesAritmetica />} />
           <Route path="/modulos/aritmetica/actividad-1" element={<ActividadAritmetica />} />
+          <Route path="/modulos/aritmetica/actividad-2" element={<ActividadDivisibilidad />} />
+          <Route path="/modulos/aritmetica/actividad-3" element={<ActividadMCDMCM />} />
           <Route path="/modulos/aritmetica/guia-numeros-naturales" element={<GuiaNumerosNaturales />} />
           <Route path="/modulos/aritmetica/calculadora-interactiva" element={<CalculadoraInteractiva />} />
           

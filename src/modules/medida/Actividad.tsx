@@ -1,6 +1,6 @@
-import  { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { HelpCircle, BookOpen, Lightbulb, CheckCircle, XCircle } from 'lucide-react'
+import { HelpCircle, BookOpen, Lightbulb, CheckCircle, XCircle, ChevronRight } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import ModuleHeader from '../../components/ModuleHeader'
@@ -110,7 +110,7 @@ export default function ActividadMedida() {
       />
       <main className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 pb-16">
       {/* Header */}
-      <ModuleHeader title="Medida" backPath="/modulos/medida">
+      <ModuleHeader title="Medida" backPath="/modulos/medida/actividades">
         <div className="ml-auto flex gap-2">
             <Dialog>
               <DialogTrigger asChild>
@@ -249,8 +249,12 @@ export default function ActividadMedida() {
                           </p>
                         )}
                         {isCorrect && (
-                          <div className="mt-3">
-                            <Button onClick={() => navigate("/modulos/numeros-naturales")}>Volver al módulo</Button>
+                          <div className="mt-3 flex gap-3">
+                            <Button onClick={() => navigate("/modulos/medida/actividades")}>Volver a actividades</Button>
+                            <Button onClick={() => navigate("/modulos/medida/conversion-unidades")} variant="default">
+                              Siguiente actividad
+                              <ChevronRight className="ml-2 h-4 w-4" />
+                            </Button>
                           </div>
                         )}
                       </div>

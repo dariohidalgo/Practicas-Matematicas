@@ -54,31 +54,31 @@ export default function ListaActividadesAritmetica() {
                 </div>
               </Card>
               
-              <Card className="p-4 hover:bg-blue-50 transition-colors cursor-pointer">
+              <Card 
+                className="p-4 hover:bg-blue-50 transition-colors cursor-pointer"
+                onClick={() => navigate('/modulos/aritmetica/actividad-2')}
+              >
                 <div className="flex justify-between items-center">
                   <div>
                     <h3 className="font-medium text-gray-800">Actividad 2: Divisibilidad</h3>
                     <p className="text-sm text-gray-600 mt-1">
                       Aprende a aplicar los criterios de divisibilidad y a identificar números primos.
                     </p>
-                    <span className="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded mt-2">
-                      Próximamente
-                    </span>
                   </div>
                   <ChevronRight className="h-5 w-5 text-gray-400" />
                 </div>
               </Card>
               
-              <Card className="p-4 hover:bg-blue-50 transition-colors cursor-pointer">
+              <Card 
+                className="p-4 hover:bg-blue-50 transition-colors cursor-pointer"
+                onClick={() => navigate('/modulos/aritmetica/actividad-3')}
+              >
                 <div className="flex justify-between items-center">
                   <div>
                     <h3 className="font-medium text-gray-800">Actividad 3: MCD y MCM</h3>
                     <p className="text-sm text-gray-600 mt-1">
                       Calcula el máximo común divisor y el mínimo común múltiplo de varios números.
                     </p>
-                    <span className="inline-block px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded mt-2">
-                      Próximamente
-                    </span>
                   </div>
                   <ChevronRight className="h-5 w-5 text-gray-400" />
                 </div>
