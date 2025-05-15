@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://matematicas-732ff.web.app/sitemap.xml

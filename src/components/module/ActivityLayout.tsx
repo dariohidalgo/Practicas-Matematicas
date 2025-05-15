@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../ui/sheet'
+import { SEO } from '../seo/SEO'
 
 interface ActivityLayoutProps {
   children: ReactNode
@@ -22,6 +23,11 @@ interface ActivityLayoutProps {
   canProgress?: boolean
   nextPath?: string
   previousPath?: string
+  // Metadatos SEO opcionales
+  seoTitle?: string
+  seoDescription?: string
+  seoKeywords?: string
+  seoUrl?: string
 }
 
 export function ActivityLayout({
@@ -33,7 +39,11 @@ export function ActivityLayout({
   onComplete,
   canProgress = true,
   nextPath,
-  previousPath
+  previousPath,
+  seoTitle,
+  seoDescription,
+  seoKeywords,
+  seoUrl
 }: ActivityLayoutProps) {
   const navigate = useNavigate()
   useModule() // Mantener el hook para contexto
@@ -48,7 +58,17 @@ export function ActivityLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
+    <>
+      {/* Agregar SEO si se proporcionan los metadatos */}
+      {seoTitle && (
+        <SEO 
+          title={seoTitle}
+          description={seoDescription || description}
+          keywords={seoKeywords || ''}
+          url={seoUrl || ''}
+        />
+      )}
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
@@ -132,5 +152,6 @@ export function ActivityLayout({
         </div>
       </main>
     </div>
+    </>
   )
 }

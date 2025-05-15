@@ -4,6 +4,8 @@ import { Calculator, ChevronRight, RefreshCw, Check, ArrowLeft } from 'lucide-re
 
 import ModuleHeader from '../../components/ModuleHeader'
 import { useAuth } from '../../contexts/auth-context'
+import { ActivityLayout } from '../../components/module/ActivityLayout'
+import { SEO } from '../../components/seo/SEO'
 
 // Definición de las unidades por categoría
 const unidades = {
@@ -116,7 +118,14 @@ export default function ConversionUnidades() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-teal-100 pb-16">
+    <>
+      <SEO 
+        title="Conversión de Unidades | Módulo de Medida" 
+        description="Aprende a convertir entre diferentes unidades de medida: longitud, masa, capacidad y tiempo. Incluye conversor interactivo y ejemplos prácticos."
+        keywords="conversión, unidades, medida, longitud, masa, capacidad, tiempo, matemáticas, educación"
+        url="https://matematicas-732ff.web.app/modulos/medida/conversion-unidades"
+      />
+      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-teal-100 pb-16">
       {/* Header */}
       <ModuleHeader title="Conversión de Unidades" backPath="/modulos/medida" />
 
@@ -423,5 +432,6 @@ export default function ConversionUnidades() {
         </div>
       </div>
     </main>
+    </>
   )
 }

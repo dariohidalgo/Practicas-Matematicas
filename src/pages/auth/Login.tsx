@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/auth-context'
 import { Button } from '../../components/ui/button'
 import { Alert, AlertDescription } from '../../components/ui/alert'
 import { FcGoogle } from 'react-icons/fc'
+import { SEO } from '../../components/seo/SEO'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -23,7 +24,14 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <>
+      <SEO 
+        title="Iniciar sesión" 
+        description="Inicia sesión en la plataforma educativa Elena para acceder a todos los módulos de matemáticas."
+        keywords="login, iniciar sesión, matemáticas, educación"
+        url="https://matematicas-732ff.web.app/login"
+      />
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -54,5 +62,6 @@ export default function Login() {
         </div>
       </div>
     </div>
+    </>
   )
 }

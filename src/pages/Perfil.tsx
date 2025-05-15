@@ -7,6 +7,7 @@ import { Progress } from '../components/ui/progress'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card'
 import { Button } from '../components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
+import { SEO } from '../components/seo/SEO'
 
 // Usar los mismos módulos que en el Dashboard
 const modules = [
@@ -125,7 +126,14 @@ export default function Perfil() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
+    <>
+      <SEO 
+        title="Perfil de Usuario" 
+        description="Gestiona tu perfil y visualiza tu progreso en la plataforma educativa Elena."
+        keywords="perfil, usuario, progreso, matemáticas, educación"
+        url="https://matematicas-732ff.web.app/perfil"
+      />
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
@@ -293,5 +301,6 @@ export default function Perfil() {
         </div>
       </main>
     </div>
+    </>
   )
 }

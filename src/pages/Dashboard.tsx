@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import {  Award, TrendingUp, Ruler, Percent, Search } from 'lucide-react'
 import { useAuth } from '../contexts/auth-context'
 import { useProgress } from '../contexts/progress-context'
+import { SEO } from '../components/seo/SEO'
 import { Progress } from '../components/ui/progress'
 import { Card } from '../components/ui/card'
 import { Button } from '../components/ui/button'
@@ -131,12 +132,9 @@ export default function Dashboard() {
  
 
   // Mostrar spinner mientras se carga o no hay datos
-  if (authLoading || progressLoading || !user || !progress) {
-   
+  if (authLoading || progressLoading || !user) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-green-400 border-t-transparent rounded-full animate-spin"></div>
-      </div>
+      <div className="flex items-center justify-center h-screen">Cargando...</div>
     )
   }
 
@@ -156,7 +154,14 @@ export default function Dashboard() {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
+    <>
+      <SEO 
+        title="Dashboard" 
+        description="Accede a todos tus módulos de matemáticas y revisa tu progreso en la plataforma educativa Elena."
+        keywords="dashboard, matemáticas, módulos, progreso, aprendizaje"
+        url="https://matematicas-732ff.web.app/dashboard"
+      />
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center">
@@ -175,14 +180,14 @@ export default function Dashboard() {
               <div className="flex items-center">
                 <div className="mr-3 hidden sm:block">
                   <h2 className="text-sm font-semibold text-gray-800 text-right">
-                    ¡Bienvenido{user.displayName ? `, ${user.displayName}` : ''}!
+                    ¡Bienvenido{user?.displayName ? `, ${user.displayName}` : ''}!
                   </h2>
-                  <p className="text-xs text-gray-500 text-right">{user.email}</p>
+                  <p className="text-xs text-gray-500 text-right">{user?.email}</p>
                 </div>
                 <div className="flex-shrink-0">
-                  {user.photoURL ? (
+                  {user?.photoURL ? (
                     <img
-                      src={user.photoURL}
+                      src={user?.photoURL}
                       alt="Avatar del usuario"
                       className="h-10 w-10 rounded-full border-2 border-green-400"
                     />
@@ -269,5 +274,6 @@ export default function Dashboard() {
         </div>
       </main>
     </div>
+    </>
   )
 }

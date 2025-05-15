@@ -5,6 +5,7 @@ import { Button } from '../../components/ui/button'
 import { Card } from '../../components/ui/card'
 import { useAuth } from '../../contexts/auth-context'
 import ModuleHeader from '../../components/ModuleHeader'
+import { SEO } from '../../components/seo/SEO'
 
 export default function IntroduccionMedida() {
   const { user, loading: authLoading } = useAuth()
@@ -26,7 +27,14 @@ export default function IntroduccionMedida() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-teal-100 pb-16">
+    <>
+      <SEO 
+        title="Introducción a la Medida | Módulo Educativo" 
+        description="Aprende los conceptos fundamentales de la medida: longitud, masa, capacidad y tiempo. Descubre el sistema métrico y sus aplicaciones prácticas."
+        keywords="medida, sistema métrico, longitud, masa, capacidad, tiempo, matemáticas, educación"
+        url="https://matematicas-732ff.web.app/modulos/medida"
+      />
+      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-teal-100 pb-16">
       {/* Header */}
       <ModuleHeader title="Medida" backPath="/dashboard" />
 
@@ -202,5 +210,6 @@ export default function IntroduccionMedida() {
         </div>
       </div>
     </main>
+    </>
   )
 }

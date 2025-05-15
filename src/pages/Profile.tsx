@@ -6,6 +6,7 @@ import { useProgress } from '../contexts/progress-context'
 import { Button } from '../components/ui/button'
 import { Card } from '../components/ui/card'
 import { Progress } from '../components/ui/progress'
+import { SEO } from '../components/seo/SEO'
 
 export default function Profile() {
   const navigate = useNavigate()
@@ -35,7 +36,14 @@ export default function Profile() {
   ) / Object.keys(progress.moduleProgress).length
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
+    <>
+      <SEO 
+        title="Mi Perfil" 
+        description="Gestiona tu perfil de usuario y visualiza tu progreso en la plataforma educativa Elena."
+        keywords="perfil, usuario, progreso, matemáticas, educación"
+        url="https://matematicas-732ff.web.app/profile"
+      />
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <button
           onClick={() => navigate(-1)}
@@ -112,5 +120,6 @@ export default function Profile() {
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/ta
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog'
 import { useAuth } from '../../contexts/auth-context'
 import { useProgress } from '../../contexts/progress-context'
+import { SEO } from '../../components/seo/SEO'
 
 export default function ActividadMedida() {
   const { user, loading: authLoading } = useAuth()
@@ -100,7 +101,14 @@ export default function ActividadMedida() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 pb-16">
+    <>
+      <SEO 
+        title="Actividades de Medida | Conversión de Unidades" 
+        description="Practica la conversión de unidades de medida con ejercicios interactivos. Aprende a convertir entre metros, centímetros, kilómetros y otras unidades."
+        keywords="actividades, medida, conversión, unidades, ejercicios, matemáticas, educación"
+        url="https://matematicas-732ff.web.app/modulos/medida/actividades"
+      />
+      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 pb-16">
       {/* Header */}
       <ModuleHeader title="Medida" backPath="/modulos/medida">
         <div className="ml-auto flex gap-2">
@@ -302,5 +310,6 @@ export default function ActividadMedida() {
         </div>
       </div>
     </main>
+    </>
   )
 }

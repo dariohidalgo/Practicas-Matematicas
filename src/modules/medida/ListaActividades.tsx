@@ -5,6 +5,7 @@ import { Button } from "../../components/ui/button"
 import { useAuth } from "../../contexts/auth-context"
 import { useProgress } from "../../contexts/progress-context"
 import ModuleHeader from "../../components/ModuleHeader"
+import { SEO } from "../../components/seo/SEO"
 
 export default function ListaActividadesMedida() {
   const { user, loading: authLoading } = useAuth()
@@ -32,7 +33,14 @@ export default function ListaActividadesMedida() {
   const moduleProgress = progress?.moduleProgress?.medida || 0
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 pb-16">
+    <>
+      <SEO 
+        title="Lista de Actividades de Medida | Ejercicios Prácticos" 
+        description="Accede a todas las actividades y ejercicios del módulo de medida. Practica la conversión de unidades y resuelve problemas de medición."
+        keywords="actividades, medida, ejercicios, conversión, unidades, matemáticas, educación"
+        url="https://matematicas-732ff.web.app/modulos/medida/actividades"
+      />
+      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 pb-16">
       {/* Header */}
       <ModuleHeader title="Actividades de Medida" backPath="/modulos/medida">
         <div className="flex items-center gap-2">
@@ -104,5 +112,6 @@ export default function ListaActividadesMedida() {
         </div>
       </div>
     </main>
+    </>
   )
 }
