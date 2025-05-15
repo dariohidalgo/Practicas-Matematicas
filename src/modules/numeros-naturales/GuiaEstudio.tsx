@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BookOpen, Calculator, Grid, Layers, ArrowRight } from 'lucide-react'
 import { Button } from '../../components/ui/button'

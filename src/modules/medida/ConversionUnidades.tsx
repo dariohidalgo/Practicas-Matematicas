@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Calculator, RefreshCw, Check, ArrowLeft, BookOpen } from 'lucide-react'
+import { Calculator, RefreshCw, Check, ArrowLeft } from 'lucide-react'
 import { Button } from '../../components/ui/button'
-import { Card } from '../../components/ui/card'
+
 import ModuleHeader from '../../components/ModuleHeader'
 import { useAuth } from '../../contexts/auth-context'
 import { SEO } from '../../components/seo/SEO'
@@ -54,24 +54,7 @@ export default function ConversionUnidades() {
     return savedCategoria as keyof typeof unidades || 'longitud'
   })
 
-  // Guía de mejores prácticas para conversiones
-  const guiaConversiones = [
-    {
-      titulo: 'Regla de conversión',
-      descripcion: 'Para convertir entre unidades, multiplica o divide por el factor de conversión.',
-      ejemplo: '1 km = 1000 m, 500 m = 0.5 km'
-    },
-    {
-      titulo: 'Precisión',
-      descripcion: 'Redondea los resultados según el contexto. En ciencia, usa más decimales.',
-      ejemplo: 'Cocina: 1.5 kg, Física: 1.523 kg'
-    },
-    {
-      titulo: 'Unidades base',
-      descripcion: 'Cada sistema de medida tiene una unidad base: metro (longitud), kilogramo (masa), etc.',
-      ejemplo: 'Todas las conversiones parten de la unidad base'
-    }
-  ]
+
   
   const [valorEntrada, setValorEntrada] = useState<string>(() => {
     return localStorage.getItem('conversionValor') || ''
