@@ -31,7 +31,7 @@ export default function Login() {
         keywords="login, iniciar sesión, matemáticas, educación"
         url="https://matematicas-732ff.web.app/login"
       />
-      <img className='w-full h-full object-cover -z-50 flex items-center justify-center absolute' src="../public/images/fondo.webp" alt="" />
+      <img className='w-full h-full object-cover -z-50 flex items-center justify-center absolute' src="https://res.cloudinary.com/dkih3qqci/image/upload/v1747339189/fondo_jqse02.webp" alt="" />
       <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" >
         
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
