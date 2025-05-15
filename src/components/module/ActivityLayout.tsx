@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, HelpCircle, BookOpen } from 'lucide-react'
 import { useModule } from '../../contexts/module-context'
@@ -36,7 +36,7 @@ export function ActivityLayout({
   previousPath
 }: ActivityLayoutProps) {
   const navigate = useNavigate()
-  const { currentActivity, activities } = useModule()
+  useModule() // Mantener el hook para contexto
 
   const handleNext = () => {
     if (onComplete) {

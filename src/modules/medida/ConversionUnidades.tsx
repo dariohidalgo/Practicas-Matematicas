@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Calculator, ChevronRight, RefreshCw, Check, ArrowLeft } from 'lucide-react'
-import { Button } from '../../components/ui/button'
-import { Card } from '../../components/ui/card'
+
 import ModuleHeader from '../../components/ModuleHeader'
 import { useAuth } from '../../contexts/auth-context'
 

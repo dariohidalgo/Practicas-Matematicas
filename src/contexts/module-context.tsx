@@ -56,7 +56,7 @@ export function ModuleProvider({ children, moduleId, activities: initialActiviti
     )
 
     // Actualizar el progreso en el contexto de progreso
-    await updateActivityProgress(activityId, true)
+    await updateActivityProgress(moduleId, activityId, { completed: true, score: 100 })
     await updateModuleProgress(moduleId, moduleProgress)
   }
 
