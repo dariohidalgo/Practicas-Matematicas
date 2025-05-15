@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
+  <!-- Triángulo -->
+  <polygon points="30,170 270,170 150,30" fill="none" stroke="blue" stroke-width="2"/>
+  
+  <!-- Altura -->
+  <line x1="150" y1="30" x2="150" y2="170" stroke="blue" stroke-dasharray="5,5" stroke-width="2"/>
+  
+  <!-- Etiquetas -->
+  <text x="140" y="105" font-family="Arial" font-size="16" fill="black">6 cm</text>
+  <text x="140" y="190" font-family="Arial" font-size="16" fill="black">8 cm</text>
+</svg>

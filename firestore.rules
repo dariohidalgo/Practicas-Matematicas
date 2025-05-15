@@ -1,0 +1,37 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Función auxiliar para verificar si el usuario está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Función para verificar si el usuario está accediendo a sus propios datos
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // Reglas para la colección de usuarios
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId);
+    }
+
+    // Reglas para la colección de progreso
+    match /progress/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Reglas para la colección de actividades (solo lectura para usuarios autenticados)
+    match /activities/{activityId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // Solo administradores pueden modificar actividades
+    }
+
+    // Reglas por defecto - denegar todo lo demás
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,5 @@
+export { default as ModuloNumerosNaturales } from './numeros-naturales'
+export { default as ModuloProporcionalidad } from './proporcionalidad'
+export { default as ModuloGeometria } from './geometria'
+export { default as ModuloMedida } from './medida'
+export { default as ModuloNumerosRacionales } from './numeros-racionales'
