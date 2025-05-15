@@ -189,20 +189,29 @@ export default function IntroduccionMedida() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Card className="p-4 bg-white shadow-sm flex items-start gap-3">
                 <BookOpen className="h-5 w-5 text-teal-600 mt-0.5" />
-                <div>
-                  <h4 className="font-medium text-gray-800">Guía de unidades de medida</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Material complementario sobre sistemas de unidades y conversiones.
-                  </p>
-                </div>
+                <a className='cursor-pointer group transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:scale-95 p-3 -m-3 rounded-lg' onClick={() => navigate("/modulos/medida/guia-unidades")}><div className='flex items-center'><div className='flex-grow'><h4 className="font-medium text-gray-800 transition-colors group-hover:text-blue-600">Guía de unidades de medida</h4><p className="text-sm text-gray-600 mt-1 transition-colors group-hover:text-blue-500">Material complementario sobre sistemas de unidades y conversiones.</p></div><div className='ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300'><svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg></div></div></a>
               </Card>
               <Card className="p-4 bg-white shadow-sm flex items-start gap-3">
                 <Calculator className="h-5 w-5 text-blue-600 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-gray-800">Conversor de unidades</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Herramienta para convertir entre diferentes unidades de medida.
-                  </p>
+                  <a 
+                  className='cursor-pointer group transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:scale-95 p-3 -m-3 rounded-lg'
+                  onClick={() => navigate("/modulos/medida/conversion-unidades")}
+                >
+                  <div className='flex items-center'>
+                    <div className='flex-grow'>
+                      <h4 className="font-medium text-gray-800 transition-colors group-hover:text-teal-600">Conversor de unidades</h4>
+                      <p className="text-sm text-gray-600 mt-1 transition-colors group-hover:text-teal-500">
+                        Herramienta para convertir entre diferentes unidades de medida.
+                      </p>
+                    </div>
+                    <div className='ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-teal-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                </a>
                 </div>
               </Card>
             </div>

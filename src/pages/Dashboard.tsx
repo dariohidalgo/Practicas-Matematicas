@@ -222,11 +222,7 @@ export default function Dashboard() {
         <div className="px-4 py-6 sm:px-0">
           {/* Racha y logros */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
-            <StreakCard
-              currentStreak={3}
-              bestStreak={7}
-              lastActivity={new Date()}
-            />
+              <StreakCard />
             <div className="lg:col-span-2">
               <h2 className="text-lg font-semibold mb-3 md:mb-4">Logros</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">

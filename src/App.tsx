@@ -26,6 +26,7 @@ import CalculadoraAreas from "./modules/geometria/CalculadoraAreas"
 import ListaActividadesMedida from "./modules/medida/ListaActividades"
 import ActividadMedida from "./modules/medida/Actividad"
 import ConversionUnidades from "./modules/medida/ConversionUnidades"
+import GuiaUnidades from "./modules/medida/GuiaUnidades"
 import ListaActividadesNumerosRacionales from "./modules/numeros-racionales/ListaActividades"
 import ActividadNumerosRacionales from "./modules/numeros-racionales/Actividad"
 import ListaActividadesAritmetica from "./modules/aritmetica/ListaActividades"
@@ -33,13 +34,14 @@ import ActividadAritmetica from "./modules/aritmetica/Actividad"
 import ActividadDivisibilidad from "./modules/aritmetica/Actividad2"
 import ActividadMCDMCM from "./modules/aritmetica/Actividad3"
 import GuiaNumerosNaturales from "./modules/aritmetica/GuiaNumerosNaturales"
+import GuiaEstudioNaturales from "./modules/numeros-naturales/GuiaEstudio"
 import CalculadoraInteractiva from "./modules/aritmetica/CalculadoraInteractiva"
-
+import CalculadoraProporcionalidad from "./modules/proporcionalidad/CalculadoraProporcionalidad"
 // Importaciones de las actividades de proporcionalidad
 import ActividadProporcionalidad1 from "./modules/proporcionalidad/Actividad1"
 import ActividadProporcionalidad2 from "./modules/proporcionalidad/Actividad2"
 import ActividadProporcionalidad3 from "./modules/proporcionalidad/Actividad3"
-
+import GuiaProporcionalidad from "./modules/proporcionalidad/GuiaProporcionalidad"
 // Importaciones de las actividades de números naturales
 import ActividadNaturales1 from "./modules/numeros-naturales/Actividad1"
 import ActividadNaturales2 from "./modules/numeros-naturales/Actividad2"
@@ -62,7 +64,8 @@ function App() {
           <Route path="/modulos/proporcionalidad/actividad-1" element={<ActividadProporcionalidad1 />} />
           <Route path="/modulos/proporcionalidad/actividad-2" element={<ActividadProporcionalidad2 />} />
           <Route path="/modulos/proporcionalidad/actividad-3" element={<ActividadProporcionalidad3 />} />
-          
+          <Route path="/modulos/proporcionalidad/calculadora-proporcionalidad" element={<CalculadoraProporcionalidad />} />
+          <Route path="/modulos/proporcionalidad/guia-proporcionalidad" element={<GuiaProporcionalidad />} />
           {/* Rutas del módulo de números naturales */}
           <Route path="/modulos/numeros-naturales" element={<IntroduccionNaturales />} />
           <Route path="/modulos/numeros-naturales/actividades" element={<ListaActividadesNaturales />} />
@@ -70,6 +73,7 @@ function App() {
           <Route path="/modulos/numeros-naturales/actividad-2" element={<ActividadNaturales2 />} />
           <Route path="/modulos/numeros-naturales/actividad-3" element={<ActividadNaturales3 />} />
           <Route path="/modulos/numeros-naturales/division-cociente-resto" element={<DivisionCocienteResto />} />
+           <Route path="/modulos/numeros-naturales/guia-estudio" element={<GuiaEstudioNaturales />} />
           
           {/* Rutas del módulo de aritmética */}
           <Route path="/modulos/aritmetica" element={<IntroduccionAritmetica />} />
@@ -93,6 +97,7 @@ function App() {
           <Route path="/modulos/medida/actividades" element={<ListaActividadesMedida />} />
           <Route path="/modulos/medida/actividad-1" element={<ActividadMedida />} />
           <Route path="/modulos/medida/conversion-unidades" element={<ConversionUnidades />} />
+           <Route path="/modulos/medida/guia-unidades" element={<GuiaUnidades />} />
           
           {/* Rutas del módulo de números racionales */}
           <Route path="/modulos/numeros-racionales" element={<IntroduccionRacionales />} />

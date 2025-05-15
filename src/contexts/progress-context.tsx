@@ -35,6 +35,10 @@ interface Progress {
       [activity: string]: ActivityProgress
     } | undefined
   }
+  // Nuevos campos para racha de actividad
+  currentStreak: number
+  bestStreak: number
+  lastActivityDate?: string | Date | null
 }
 
 interface ProgressContextType {
@@ -103,7 +107,10 @@ const defaultProgress: Progress = {
       'actividad-2': { completed: false, score: 0 },
       'actividad-3': { completed: false, score: 0 }
     }
-  }
+  },
+  // Inicializar campos de racha
+  currentStreak: 0,
+  bestStreak: 0
 }
 
 const ProgressContext = createContext<ProgressContextType>({
@@ -146,7 +153,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         if (docSnap.exists()) {
           const data = docSnap.data() as Progress
           // Asegurar que todos los campos existan
-          const mergedProgress = {
+          const mergedProgress: Progress = {
             ...defaultProgress,
             ...data,
             activityProgress: {
@@ -156,14 +163,23 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
             moduleProgress: {
               ...defaultProgress.moduleProgress,
               ...(data.moduleProgress || {})
+            },
+            // Asegurar campos de racha
+            currentStreak: data.currentStreak || 0,
+            bestStreak: data.bestStreak || 0,
+            lastActivityDate: data.lastActivityDate 
+              ? (typeof data.lastActivityDate === 'string' 
+                ? data.lastActivityDate 
+                : data.lastActivityDate instanceof Date 
+                  ? data.lastActivityDate.toISOString() 
+                  : new Date(data.lastActivityDate).toISOString())
+              : undefined,
+            // Agregar el alias 'activities' para compatibilidad con los componentes ListaActividades
+            activities: {
+              geometria: data.activityProgress?.geometria || defaultProgress.activityProgress.geometria,
+              medida: data.activityProgress?.medida || defaultProgress.activityProgress.medida,
+              numerosRacionales: data.activityProgress?.numerosRacionales || defaultProgress.activityProgress.numerosRacionales
             }
-          }
-          
-          // Agregar el alias 'activities' para compatibilidad con los componentes ListaActividades
-          mergedProgress.activities = {
-            geometria: mergedProgress.activityProgress.geometria,
-            medida: mergedProgress.activityProgress.medida,
-            numerosRacionales: mergedProgress.activityProgress.numerosRacionales
           }
        
           setProgress(mergedProgress)
@@ -199,15 +215,55 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       setError(null)
       const docRef = doc(db, 'progress', user.uid)
       
+      // Calcular la racha de actividad
+      const today = new Date()
+      const lastActivityDate = progress.lastActivityDate 
+        ? new Date(progress.lastActivityDate) 
+        : null
+      
+      let newCurrentStreak = progress.currentStreak
+      let newBestStreak = progress.bestStreak
+      
+      // Verificar si la última actividad fue ayer
+      if (lastActivityDate) {
+        const yesterday = new Date(today)
+        yesterday.setDate(yesterday.getDate() - 1)
+        
+        const isYesterday = 
+          lastActivityDate.getDate() === yesterday.getDate() &&
+          lastActivityDate.getMonth() === yesterday.getMonth() &&
+          lastActivityDate.getFullYear() === yesterday.getFullYear()
+        
+        // Si la última actividad fue ayer, incrementar la racha
+        if (isYesterday) {
+          newCurrentStreak++
+          newBestStreak = Math.max(newCurrentStreak, newBestStreak)
+        } 
+        // Si no es ayer, reiniciar la racha
+        else if (
+          lastActivityDate.getDate() !== today.getDate() ||
+          lastActivityDate.getMonth() !== today.getMonth() ||
+          lastActivityDate.getFullYear() !== today.getFullYear()
+        ) {
+          newCurrentStreak = 1
+        }
+      } else {
+        // Primera actividad
+        newCurrentStreak = 1
+      }
+      
       const updatedProgress = {
         ...progress,
         activityProgress: {
           ...progress.activityProgress,
           [module]: {
-            ...(progress.activityProgress[module] || {}),
+            ...progress.activityProgress[module],
             [activity]: activityProgress
           }
-        }
+        },
+        currentStreak: newCurrentStreak,
+        bestStreak: newBestStreak,
+        lastActivityDate: today.toISOString() // Convertir a cadena para Firestore
       }
       
       // Actualizar también el alias 'activities' para mantener la consistencia

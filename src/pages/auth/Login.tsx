@@ -31,15 +31,19 @@ export default function Login() {
         keywords="login, iniciar sesión, matemáticas, educación"
         url="https://matematicas-732ff.web.app/login"
       />
-      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <img className='w-full h-full object-cover -z-50 flex items-center justify-center absolute' src="../public/images/fondo.webp" alt="" />
+      <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" >
+        
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Iniciar sesión
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Bienvenido a la plataforma de aprendizaje
-          </p>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Matemáticas de 6to Grado</h2>
+           <p className="mt-2 text-center text-xl text-gray-600">Inicia sesión para acceder a todos los módulos de matemáticas y mejorar tus habilidades.</p>
+           <p className="mt-2 text-center text-xl text-gray-600">Bienvenido a la plataforma de aprendizaje</p>
+           </div>
+           <div className="flex flex-col space-y-4">
+          
+      
+        
         </div>
 
         {error && (
@@ -48,7 +52,7 @@ export default function Login() {
           </Alert>
         )}
 
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-1">
           <Button
             type="button"
             variant="outline"

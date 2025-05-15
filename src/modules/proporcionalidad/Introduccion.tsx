@@ -146,24 +146,38 @@ export default function IntroduccionProporcionalidad() {
           <div className="mt-12">
             <h3 className="text-lg font-semibold text-gray-800 mb-3">Recursos adicionales</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a 
+                 className='cursor-pointer group transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:scale-95 p-3 -m-3 rounded-lg'
+                 onClick={() => navigate("/modulos/proporcionalidad/guia-proporcionalidad")}
+               > 
               <Card className="p-4 bg-white shadow-sm flex items-start gap-3">
                 <BookOpen className="h-5 w-5 text-red-600 mt-0.5" />
                 <div>
-                  <h4 className="font-medium text-gray-800">Guía de proporcionalidad</h4>
+                  
+                  <h4 className="font-medium text-gray-800">Guía de porcentajes</h4>
                   <p className="text-sm text-gray-600 mt-1">
-                    Material complementario sobre proporcionalidad directa e inversa.
+                    Material complementario sobre porcentajes.
                   </p>
                 </div>
               </Card>
-              <Card className="p-4 bg-white shadow-sm flex items-start gap-3">
-                <Calculator className="h-5 w-5 text-blue-600 mt-0.5" />
-                <div>
-                  <h4 className="font-medium text-gray-800">Calculadora de proporciones</h4>
-                  <p className="text-sm text-gray-600 mt-1">
-                    Herramienta para resolver problemas de proporcionalidad.
-                  </p>
-                </div>
-              </Card>
+             </a>
+              <a 
+                 className='cursor-pointer group transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg active:scale-95 p-3 -m-3 rounded-lg'
+                 onClick={() => navigate("/modulos/proporcionalidad/calculadora-proporcionalidad")}
+               >   
+                 <Card className="p-4 bg-white shadow-sm flex items-start gap-3">
+                   <Calculator className="h-5 w-5 text-blue-600 mt-0.5" />
+                   <div>
+                
+                     <h4 className="font-medium text-gray-800">Calculadora de porcentajes</h4>
+                     <p className="text-sm text-gray-600 mt-1">
+                       Herramienta para resolver problemas de porcentajes.
+                     </p>
+                   
+                   </div>
+                 </Card>
+                 </a>
+               
             </div>
           </div>
         </div>

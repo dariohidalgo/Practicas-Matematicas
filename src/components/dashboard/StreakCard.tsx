@@ -1,20 +1,17 @@
 import { Card } from '../ui/card'
 import { Flame } from 'lucide-react'
 import { cn } from '../../lib/utils'
+import { useProgress } from '../../contexts/progress-context'
 
-interface StreakCardProps {
-  currentStreak: number
-  bestStreak: number
-  lastActivity: Date
-}
-
-export function StreakCard({ currentStreak, bestStreak, lastActivity }: StreakCardProps) {
+export function StreakCard() {
+  const { progress } = useProgress()
   const today = new Date()
-  const lastActivityDate = new Date(lastActivity)
-  const isActiveToday = 
+  const lastActivityDate = progress.lastActivityDate ? new Date(progress.lastActivityDate) : null
+  const isActiveToday = lastActivityDate ? (
     lastActivityDate.getDate() === today.getDate() &&
     lastActivityDate.getMonth() === today.getMonth() &&
     lastActivityDate.getFullYear() === today.getFullYear()
+  ) : false
 
   return (
     <Card className="p-6">
@@ -34,12 +31,12 @@ export function StreakCard({ currentStreak, bestStreak, lastActivity }: StreakCa
       <div className="grid grid-cols-2 gap-4">
         <div>
           <p className="text-sm text-gray-600 mb-1">Racha actual</p>
-          <p className="text-3xl font-bold text-orange-500">{currentStreak}</p>
+          <p className="text-3xl font-bold text-orange-500">{progress.currentStreak}</p>
           <p className="text-sm text-gray-500">días</p>
         </div>
         <div>
           <p className="text-sm text-gray-600 mb-1">Mejor racha</p>
-          <p className="text-3xl font-bold text-gray-900">{bestStreak}</p>
+          <p className="text-3xl font-bold text-gray-900">{progress.bestStreak}</p>
           <p className="text-sm text-gray-500">días</p>
         </div>
       </div>
