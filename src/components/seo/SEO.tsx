@@ -17,7 +17,7 @@ export function SEO({
   url = 'https://matematicas-732ff.web.app/',
   type = 'website'
 }: SEOProps) {
-  const siteTitle = title.includes('Elena') ? title : `${title} | Elena`
+  const siteTitle = title.includes('Dario-Hidalgo') ? title : `${title} | Matematicas-Dario-Hidalgo`
 
   return (
     <Helmet>

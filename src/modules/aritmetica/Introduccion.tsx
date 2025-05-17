@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { BookOpen, Calculator, ChevronRight } from 'lucide-react'
+import { BookOpen, Calculator } from 'lucide-react'
 import { Card } from '../../components/ui/card'
 import { useAuth } from '../../contexts/auth-context'
 import ModuleHeader from '../../components/ModuleHeader'
+import { Button } from '../../components/ui/button'
 
 export default function IntroduccionAritmetica() {
   const { user, loading: authLoading } = useAuth()
@@ -68,20 +69,16 @@ export default function IntroduccionAritmetica() {
               <p className="text-gray-600 mb-4">
                 Pon a prueba tus conocimientos con estas actividades interactivas.
               </p>
-              
-              <div className="grid grid-cols-1 gap-4">
-                <Card className="p-4 hover:shadow-md transition-shadow cursor-pointer" onClick={() => navigate('/modulos/aritmetica/actividades')}>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-medium text-gray-800">Actividades de aritmética</h3>
-                      <p className="text-sm text-gray-600 mt-1">
-                        Ejercicios interactivos para practicar operaciones aritméticas.
-                      </p>
-                    </div>
-                    <ChevronRight className="h-5 w-5 text-gray-400" />
-                  </div>
-                </Card>
-              </div>
+              <Button
+                onClick={() => navigate('/modulos/aritmetica/actividades')}
+                className="bg-black text-white w-full flex items-center justify-center gap-2 py-4 text-lg font-semibold hover:bg-gray-900"
+              >
+                <Calculator className="h-5 w-5 mr-2" />
+                Ir a las actividades
+              </Button>
+              <p className="text-sm text-gray-600 mt-2 text-center">
+                Ejercicios interactivos para practicar operaciones aritméticas.
+              </p>
             </div>
           </div>
           

@@ -8,6 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/ta
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog'
 import { useAuth } from '../../contexts/auth-context'
 import { useProgress } from '../../contexts/progress-context'
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 
 export default function ActividadGeometria() {
   const { user, loading: authLoading } = useAuth()
@@ -26,6 +28,7 @@ export default function ActividadGeometria() {
     dividendo: "",
     divisor: ""
   })
+  const [openCalc, setOpenCalc] = useState(false)
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -99,7 +102,7 @@ export default function ActividadGeometria() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-50 pb-16">
       {/* Header */}
-      <ModuleHeader title="Geometría" backPath="/modulos/geometria">
+      <ModuleHeader title="Geometría" backPath="/modulos/geometria/actividades">
         <div className="ml-auto flex gap-2">
             <Dialog>
               <DialogTrigger asChild>
@@ -218,7 +221,21 @@ export default function ActividadGeometria() {
                     </DialogContent>
                   </Dialog>
 
-                  <Button onClick={checkAnswers}>Verificar respuestas</Button>
+                  <div className="flex gap-4 mt-6">
+                    <Button
+                      onClick={checkAnswers}
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      Verificar respuestas
+                    </Button>
+                    <Button
+                      type="button"
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                      onClick={() => setOpenCalc(true)}
+                    >
+                      Usar calculadora
+                    </Button>
+                  </div>
                 </div>
 
                 {showFeedback && (
@@ -304,6 +321,10 @@ export default function ActividadGeometria() {
           </div>
         </div>
       </div>
+
+      <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+        <CalculadoraInteractiva sinHeader />
+      </Modal>
     </main>
   )
 }

@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/ta
 import { useAuth } from '../../contexts/auth-context'
 import { useProgress } from '../../contexts/progress-context'
 import ModuleHeader from '../../components/ModuleHeader'
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 
 export default function ActividadNaturales2() {
   const { user, loading: authLoading } = useAuth()
@@ -23,6 +25,7 @@ export default function ActividadNaturales2() {
     resultado3: "",
     resultado4: ""
   })
+  const [openCalc, setOpenCalc] = useState(false)
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -172,15 +175,26 @@ export default function ActividadNaturales2() {
                       />
                     </div>
                   </div>
-                  
-                  <Button 
-                    type="button" 
-                    onClick={checkAnswers} 
-                    className="bg-green-600 hover:bg-green-700"
-                    disabled={completed}
-                  >
-                    Verificar respuestas
-                  </Button>
+                  <div className="flex gap-4">
+                    <Button 
+                      type="button" 
+                      onClick={checkAnswers} 
+                      className="bg-green-600 hover:bg-green-700"
+                      disabled={completed}
+                    >
+                      Verificar respuestas
+                    </Button>
+                    <Button
+                      type="button"
+                      className="bg-green-600 hover:bg-green-700 text-white"
+                      onClick={() => setOpenCalc(true)}
+                    >
+                      Usar calculadora
+                    </Button>
+                  </div>
+                  <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+                    <CalculadoraInteractiva sinHeader />
+                  </Modal>
                 </form>
                 
                 {showFeedback && (

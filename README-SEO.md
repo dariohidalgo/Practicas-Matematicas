@@ -1,6 +1,6 @@
-# Mejoras de SEO en la Plataforma Educativa Elena
+# Mejoras de SEO en la Plataforma Educativa 
 
-Este documento describe las mejoras de SEO implementadas en la aplicación Elena para optimizar su indexación en motores de búsqueda.
+Este documento describe las mejoras de SEO implementadas en la aplicación  para optimizar su indexación en motores de búsqueda.
 
 ## Componentes SEO
 
@@ -66,7 +66,7 @@ Se han configurado metadatos generales en el archivo `index.html`:
 ```html
 <meta name="description" content="Plataforma educativa interactiva para el aprendizaje de matemáticas. Aprende números naturales, geometría, proporcionalidad y más de forma divertida." />
 <meta name="keywords" content="matemáticas, educación, aprendizaje, números naturales, geometría, proporcionalidad, medidas" />
-<meta name="author" content="Elena" />
+<meta name="author" content="Dario-Hidalgo" />
 ```
 
 ## Sitemap y Robots.txt

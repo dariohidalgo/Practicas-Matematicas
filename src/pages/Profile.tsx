@@ -39,7 +39,7 @@ export default function Profile() {
     <>
       <SEO 
         title="Mi Perfil" 
-        description="Gestiona tu perfil de usuario y visualiza tu progreso en la plataforma educativa Elena."
+        description="Gestiona tu perfil de usuario y visualiza tu progreso en la plataforma educativa."
         keywords="perfil, usuario, progreso, matemáticas, educación"
         url="https://matematicas-732ff.web.app/profile"
       />

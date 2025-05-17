@@ -108,7 +108,7 @@ export default function ListaActividades() {
                         onClick={() => navigate(actividad.path)}
                         className={status.completed ? "bg-green-600 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700"}
                       >
-                        {status.completed ? "Repasar" : "Comenzar"}
+                        {status.completed ? "Repetir" : "Comenzar"}
                       </Button>
                     </div>
                   </div>

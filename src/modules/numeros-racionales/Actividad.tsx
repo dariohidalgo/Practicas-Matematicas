@@ -1,5 +1,5 @@
 import  { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { HelpCircle, BookOpen, Lightbulb, CheckCircle, XCircle } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
@@ -8,11 +8,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/ta
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog'
 import { useAuth } from '../../contexts/auth-context'
 import { useProgress } from '../../contexts/progress-context'
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 
 export default function ActividadNumerosRacionales() {
   const { user, loading: authLoading } = useAuth()
   const { updateActivityProgress, updateModuleProgress, addPoints, progress } = useProgress()
   const navigate = useNavigate()
+  const location = useLocation()
+  
+  // Obtener el ID de la actividad de la ruta actual
+  const actividadId = location.pathname.split('/').pop() || 'actividad-1'
 
   const [activeTab, setActiveTab] = useState("problema")
   const [showFeedback, setShowFeedback] = useState(false)
@@ -28,6 +34,7 @@ export default function ActividadNumerosRacionales() {
     cell6: "",
     anotador: "",
   })
+  const [openCalc, setOpenCalc] = useState(false)
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -87,8 +94,8 @@ export default function ActividadNumerosRacionales() {
       try {
         console.log("Respuesta correcta, actualizando progreso...")
 
-        // Actualizar el progreso de la actividad
-        await updateActivityProgress("numerosRacionales", "actividad-1", {
+        // Actualizar el progreso de la actividad usando el actividadId proporcionado
+        await updateActivityProgress("numerosRacionales", actividadId, {
           completed: true,
           score: 100,
         })
@@ -102,7 +109,7 @@ export default function ActividadNumerosRacionales() {
 
         // Esperar 2 segundos antes de redirigir
         setTimeout(() => {
-          navigate("/modulos/numeros-racionales")
+          navigate("/modulos/numeros-racionales/actividades")
         }, 2000)
       } catch (error) {
         console.error("Error al actualizar el progreso:", error)
@@ -128,7 +135,7 @@ export default function ActividadNumerosRacionales() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 pb-16">
       {/* Header */}
-      <ModuleHeader title="Números Racionales" backPath="/modulos/numeros-racionales">
+      <ModuleHeader title="Números Racionales" backPath="/modulos/numeros-racionales/actividades">
         <div className="ml-auto flex gap-2">
             <Dialog>
               <DialogTrigger asChild>
@@ -163,7 +170,7 @@ export default function ActividadNumerosRacionales() {
           <h2 className="text-lg font-bold text-gray-800 mb-4">Actividad: Suma de fracciones</h2>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-2 gap-4">
               <TabsTrigger value="problema">Problema</TabsTrigger>
               <TabsTrigger value="anotador">Anotador</TabsTrigger>
             </TabsList>
@@ -239,30 +246,31 @@ export default function ActividadNumerosRacionales() {
                 </div>
 
                 <div className="flex justify-between items-center mt-6">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="outline" className="flex items-center gap-2">
-                        <Lightbulb className="h-4 w-4" />
-                        <span>Pista</span>
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Pista</DialogTitle>
-                      </DialogHeader>
-                      <p className="text-sm text-gray-600 mt-2">
-                        Recuerda que en una división, el dividendo es igual al divisor multiplicado por el cociente, más
-                        el resto.
-                      </p>
-                      <p className="text-sm text-gray-600 mt-2">Es decir: Dividendo = Divisor × Cociente + Resto</p>
-                      <p className="text-sm text-gray-600 mt-2">
-                        En este caso, ya sabes que el cociente es 21 y el resto es 8. ¿Puedes encontrar el dividendo y
-                        el divisor?
-                      </p>
-                    </DialogContent>
-                  </Dialog>
+                  <div className="bg-blue-50 p-4 rounded-lg w-full">
+                    <h4 className="font-medium text-blue-800 mb-2">Pista para sumar fracciones:</h4>
+                    <ul className="list-disc pl-5 text-sm text-blue-700 space-y-1">
+                      <li>Para sumar fracciones con distinto denominador, primero debes hallar el mcm de los denominadores</li>
+                      <li>Luego, multiplica cada numerador por el resultado de dividir el mcm entre su denominador</li>
+                      <li>Suma los nuevos numeradores y mantén el mcm como denominador</li>
+                      <li>Finalmente, simplifica la fracción si es posible</li>
+                    </ul>
+                  </div>
+                </div>
 
-                  <Button onClick={checkAnswers}>Verificar respuestas</Button>
+                <div className="flex gap-4 mt-6">
+                  <Button
+                    onClick={checkAnswers}
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    Verificar respuestas
+                  </Button>
+                  <Button
+                    type="button"
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                    onClick={() => setOpenCalc(true)}
+                  >
+                    Usar calculadora
+                  </Button>
                 </div>
 
                 {showFeedback && (
@@ -348,6 +356,10 @@ export default function ActividadNumerosRacionales() {
           </div>
         </div>
       </div>
+
+      <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+        <CalculadoraInteractiva sinHeader />
+      </Modal>
     </main>
   )
 }

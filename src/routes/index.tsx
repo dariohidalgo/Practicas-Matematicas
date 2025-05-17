@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Link, } from 'react-router-dom'
+import { useNavigate, Link, Route } from 'react-router-dom'
 import { ArrowLeft, HelpCircle, BookOpen, Lightbulb, CheckCircle, XCircle } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { Input } from '../components/ui/input'
@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog'
 import { useAuth } from '../contexts/auth-context'
 import { useProgress } from '../contexts/progress-context'
+import Actividad1Geometria from '../modules/geometria/Actividad1'
 
 export default function ActividadProporcionalidad() {
   const { user, loading: authLoading } = useAuth()

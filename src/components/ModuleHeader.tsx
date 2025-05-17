@@ -15,9 +15,9 @@ export default function ModuleHeader({ title, backPath, children }: ModuleHeader
       <div className="container mx-auto flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center">
           {backPath && (
-            <Link to={backPath} className="mr-2 sm:mr-4">
+            <Link to={backPath} className="mr-2 sm:mr-4 ">
               <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 p-1.5" aria-label="Volver">
-                <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
+                <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
               </Button>
             </Link>
           )}
@@ -27,7 +27,7 @@ export default function ModuleHeader({ title, backPath, children }: ModuleHeader
           {children}
           <Link to="/dashboard">
             <Button variant="ghost" size="icon" className="h-8 w-8 sm:h-9 sm:w-9 p-1.5" aria-label="Ir a inicio">
-              <Home className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
+              <Home className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </Button>
           </Link>
         </div>

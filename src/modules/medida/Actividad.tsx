@@ -9,6 +9,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { useAuth } from '../../contexts/auth-context'
 import { useProgress } from '../../contexts/progress-context'
 import { SEO } from '../../components/seo/SEO'
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 
 export default function ActividadMedida() {
   const { user, loading: authLoading } = useAuth()
@@ -27,6 +29,7 @@ export default function ActividadMedida() {
     dividendo: "",
     divisor: ""
   })
+  const [openCalc, setOpenCalc] = useState(false)
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -223,7 +226,21 @@ export default function ActividadMedida() {
                     </DialogContent>
                   </Dialog>
 
-                  <Button onClick={checkAnswers}>Verificar respuestas</Button>
+                  <div className="flex gap-4 mt-6">
+                    <Button
+                      onClick={checkAnswers}
+                      className="bg-purple-600 hover:bg-purple-700 text-white"
+                    >
+                      Verificar respuestas
+                    </Button>
+                    <Button
+                      type="button"
+                      className="bg-purple-600 hover:bg-purple-700 text-white"
+                      onClick={() => setOpenCalc(true)}
+                    >
+                      Usar calculadora
+                    </Button>
+                  </div>
                 </div>
 
                 {showFeedback && (
@@ -313,6 +330,10 @@ export default function ActividadMedida() {
           </div>
         </div>
       </div>
+
+      <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+        <CalculadoraInteractiva sinHeader />
+      </Modal>
     </main>
     </>
   )

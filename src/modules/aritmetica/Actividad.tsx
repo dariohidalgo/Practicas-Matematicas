@@ -7,6 +7,8 @@ import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
 import { Progress } from '../../components/ui/progress'
 import ModuleHeader from '../../components/ModuleHeader'
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from './CalculadoraInteractiva'
 
 interface Pregunta {
   id: number
@@ -29,6 +31,7 @@ export default function ActividadAritmetica() {
   const [mostrarExplicacion, setMostrarExplicacion] = useState(false)
   const [puntuacion, setPuntuacion] = useState(0)
   const [actividadCompletada, setActividadCompletada] = useState(false)
+  const [openCalc, setOpenCalc] = useState(false)
   
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -414,13 +417,16 @@ export default function ActividadAritmetica() {
                 Ver guía de estudio
               </button>
               <button 
-                onClick={() => navigate("/modulos/aritmetica/calculadora-interactiva")}
+                onClick={() => setOpenCalc(true)}
                 className="py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700"
               >
                 Usar calculadora
               </button>
             </div>
           </div>
+          <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+            <CalculadoraInteractiva sinHeader />
+          </Modal>
         </div>
       </div>
     </main>

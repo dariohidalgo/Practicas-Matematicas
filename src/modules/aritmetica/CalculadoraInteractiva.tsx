@@ -9,7 +9,11 @@ import { Label } from '../../components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
 
-export default function CalculadoraInteractiva() {
+interface CalculadoraInteractivaProps {
+  sinHeader?: boolean
+}
+
+export default function CalculadoraInteractiva({ sinHeader }: CalculadoraInteractivaProps) {
   const { user, loading: authLoading } = useAuth()
   const navigate = useNavigate()
   
@@ -257,7 +261,9 @@ export default function CalculadoraInteractiva() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-100 pb-16">
       {/* Header */}
-      <ModuleHeader title="Calculadora Interactiva" backPath="/modulos/aritmetica" />
+      {!sinHeader && (
+        <ModuleHeader title="Calculadora Interactiva" backPath="/modulos/aritmetica" />
+      )}
 
       {/* Contenido */}
       <div className="container mx-auto py-8 px-4">
@@ -266,17 +272,17 @@ export default function CalculadoraInteractiva() {
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Calculadora de Números Naturales</h2>
             
             <Tabs defaultValue="operaciones" className="mt-6">
-              <TabsList className="grid grid-cols-4 mb-4 gap-4">
-                <TabsTrigger value="operaciones">Operaciones</TabsTrigger>
-                <TabsTrigger value="divisibilidad">Divisibilidad</TabsTrigger>
-                <TabsTrigger value="mcd-mcm">MCD y MCM</TabsTrigger>
-                <TabsTrigger value="factorizacion">Factorización</TabsTrigger>
+              <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+                <TabsTrigger value="operaciones" className="text-xs md:text-sm px-2 py-2 h-12 flex items-center justify-center text-center break-words whitespace-normal">Operaciones</TabsTrigger>
+                <TabsTrigger value="divisibilidad" className="text-xs md:text-sm px-2 py-2 h-12 flex items-center justify-center text-center break-words whitespace-normal">Divisibilidad</TabsTrigger>
+                <TabsTrigger value="mcd-mcm" className="text-xs md:text-sm px-2 py-2 h-12 flex items-center justify-center text-center break-words whitespace-normal">MCD y MCM</TabsTrigger>
+                <TabsTrigger value="factorizacion" className="text-xs md:text-sm px-2 py-2 h-12 flex items-center justify-center text-center break-words whitespace-normal">Factorización</TabsTrigger>
               </TabsList>
               
               {/* Pestaña de operaciones básicas */}
               <TabsContent value="operaciones">
                 <Card className="p-4">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Operaciones Básicas</h3>
+                  <h3 className="text-lg mt-10 font-semibold text-gray-800 mb-4 md:mt-0">Operaciones Básicas</h3>
                   
                   <div className="mb-4">
                     <Label htmlFor="operacion" className="block text-sm font-medium text-gray-700 mb-1">

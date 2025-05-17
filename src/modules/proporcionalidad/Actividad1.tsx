@@ -6,6 +6,8 @@ import { Input } from "../../components/ui/input"
 import { useAuth } from "../../contexts/auth-context"
 import { useProgress } from "../../contexts/progress-context"
 import ModuleHeader from "../../components/ModuleHeader"
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 
 export default function ActividadProporcionalidad1() {
   const { user, loading: authLoading } = useAuth()
@@ -16,6 +18,7 @@ export default function ActividadProporcionalidad1() {
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null)
   const [intentos, setIntentos] = useState(0)
   const [completed, setCompleted] = useState(false)
+  const [openCalc, setOpenCalc] = useState(false)
   
   // Datos del problema
   const precioOriginal = 120
@@ -51,19 +54,25 @@ export default function ActividadProporcionalidad1() {
       setFeedback("correct")
       
       if (!completed) {
-        // Actualizar progreso solo si no se había completado antes
-        await updateActivityProgress("proporcionalidad", "actividad-1", { 
-          completed: true, 
-          score: 100 
-        })
-        
-        // Actualizar progreso del módulo (ejemplo: 33% si es 1 de 3 actividades)
-        await updateModuleProgress("proporcionalidad", 33)
-        
-        // Añadir puntos
-        await addPoints(50)
-        
-        setCompleted(true)
+        try {
+          // Actualizar progreso solo si no se había completado antes
+          await updateActivityProgress("proporcionalidad", "actividad-1", { 
+            completed: true, 
+            score: 100 
+          })
+          
+          // Actualizar progreso del módulo (ejemplo: 33% si es 1 de 3 actividades)
+          await updateModuleProgress("proporcionalidad", 33)
+          
+          // Añadir puntos
+          await addPoints(50)
+          
+          setCompleted(true)
+        } catch (error) {
+          console.error('Error al actualizar el progreso:', error)
+          // En caso de error, mostrar mensaje al usuario
+          alert('Hubo un error al guardar tu progreso. Por favor, inténtalo de nuevo.')
+        }
       }
     } else {
       setFeedback("incorrect")
@@ -74,7 +83,7 @@ export default function ActividadProporcionalidad1() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 pb-16">
       {/* Header */}
-      <ModuleHeader title="Descuentos y porcentajes" backPath="/modulos/proporcionalidad" />
+      <ModuleHeader title="Descuentos y porcentajes" backPath="/modulos/proporcionalidad/actividades" />
 
       {/* Contenido */}
       <div className="container mx-auto py-8 px-4">
@@ -111,9 +120,14 @@ export default function ActividadProporcionalidad1() {
                 </div>
               </div>
               
-              <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700" disabled={completed}>
-                Verificar respuesta
-              </Button>
+              <div className="flex gap-4">
+                <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700" disabled={completed}>
+                  Verificar respuesta
+                </Button>
+                <Button type="button" className="bg-indigo-600 hover:bg-indigo-700" onClick={() => setOpenCalc(true)}>
+                  Usar calculadora
+                </Button>
+              </div>
             </form>
             
             {feedback === "correct" && (
@@ -167,6 +181,9 @@ export default function ActividadProporcionalidad1() {
           </div>
         </div>
       </div>
+      <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+        <CalculadoraInteractiva sinHeader />
+      </Modal>
     </main>
   )
 }

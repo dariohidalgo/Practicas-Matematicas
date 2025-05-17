@@ -9,6 +9,8 @@ import { Label } from '../../components/ui/label'
 import { Progress } from '../../components/ui/progress'
 import ModuleHeader from '../../components/ModuleHeader'
 import { SEO } from '../../components/seo/SEO'
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from './CalculadoraInteractiva'
 
 interface Pregunta {
   id: number
@@ -32,6 +34,7 @@ export default function ActividadMCDMCM() {
   const [mostrarExplicacion, setMostrarExplicacion] = useState(false)
   const [puntuacion, setPuntuacion] = useState(0)
   const [actividadCompletada, setActividadCompletada] = useState(false)
+  const [openCalc, setOpenCalc] = useState(false)
   
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -238,20 +241,16 @@ export default function ActividadMCDMCM() {
                   >
                     Volver a actividades
                   </Button>
-                  
-                  {estadoRespuesta === 'pendiente' ? (
-                    <Button 
-                      onClick={verificarRespuesta}
-                      disabled={!respuestaUsuario}
-                    >
-                      Verificar
-                    </Button>
-                  ) : (
-                    <Button onClick={siguientePregunta}>
-                      {preguntaActual < preguntas.length - 1 ? 'Siguiente pregunta' : 'Finalizar actividad'}
-                    </Button>
-                  )}
+                  <Button 
+                    onClick={() => setOpenCalc(true)}
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    Usar calculadora
+                  </Button>
                 </div>
+                <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+                  <CalculadoraInteractiva sinHeader />
+                </Modal>
               </div>
             ) : (
               <div className="bg-white rounded-lg shadow-sm p-6 text-center">

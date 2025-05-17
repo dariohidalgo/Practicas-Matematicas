@@ -43,7 +43,7 @@ export function Header({ onMenuClick }: HeaderProps) {
         <div className="mr-4 hidden lg:flex">
           <Link to="/dashboard" className="mr-6 flex items-center space-x-2">
             <span className="hidden font-bold sm:inline-block">
-              Elena
+              Dario-Hidalgo
             </span>
           </Link>
         </div>

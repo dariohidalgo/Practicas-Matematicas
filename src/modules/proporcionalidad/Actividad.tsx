@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/ta
 import { useAuth } from "../../contexts/auth-context"
 import { useProgress } from "../../contexts/progress-context"
 import ModuleHeader from "../../components/ModuleHeader"
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 
 export default function ActividadProporcionalidad() {
   const { user, loading: authLoading } = useAuth()
@@ -23,6 +25,7 @@ export default function ActividadProporcionalidad() {
     cell4: "",
     anotador: "",
   })
+  const [openCalc, setOpenCalc] = useState(false)
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -88,7 +91,7 @@ export default function ActividadProporcionalidad() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 pb-16">
       {/* Header */}
-      <ModuleHeader title="Proporcionalidad" backPath="/modulos/proporcionalidad" />
+      <ModuleHeader title="Proporcionalidad" backPath="/modulos/proporcionalidad/actividades" />
       
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
@@ -129,12 +132,21 @@ export default function ActividadProporcionalidad() {
                   </div>
                 </div>
                 
-                <Button
-                  onClick={checkAnswers}
-                  className="w-full mt-4"
-                >
-                  Verificar respuestas
-                </Button>
+                <div className="flex gap-4 mt-6">
+                  <Button
+                    onClick={checkAnswers}
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    Verificar respuestas
+                  </Button>
+                  <Button
+                    type="button"
+                    className="bg-green-600 hover:bg-green-700 text-white"
+                    onClick={() => setOpenCalc(true)}
+                  >
+                    Usar calculadora
+                  </Button>
+                </div>
               </div>
             </div>
 
@@ -195,6 +207,10 @@ export default function ActividadProporcionalidad() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+        <CalculadoraInteractiva sinHeader />
+      </Modal>
     </main>
   )
 }

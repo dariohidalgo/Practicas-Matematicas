@@ -4,9 +4,11 @@ import { ChevronRight } from 'lucide-react'
 import { Card } from '../../components/ui/card'
 import { useAuth } from '../../contexts/auth-context'
 import ModuleHeader from '../../components/ModuleHeader'
+import { useProgress } from '../../contexts/progress-context'
 
 export default function ListaActividadesAritmetica() {
   const { user, loading: authLoading } = useAuth()
+  const { progress } = useProgress()
   const navigate = useNavigate()
   
   // Redirect to login if not authenticated
@@ -24,6 +26,27 @@ export default function ListaActividadesAritmetica() {
     )
   }
 
+  const actividades = [
+    {
+      id: 'actividad-1',
+      titulo: 'Operaciones con números naturales',
+      descripcion: 'Practica sumas, restas, multiplicaciones y divisiones con números naturales.',
+      path: '/modulos/aritmetica/actividad-1'
+    },
+    {
+      id: 'actividad-2',
+      titulo: 'Divisibilidad',
+      descripcion: 'Aprende a aplicar los criterios de divisibilidad y a identificar números primos.',
+      path: '/modulos/aritmetica/actividad-2'
+    },
+    {
+      id: 'actividad-3',
+      titulo: 'MCD y MCM',
+      descripcion: 'Calcula el máximo común divisor y el mínimo común múltiplo de varios números.',
+      path: '/modulos/aritmetica/actividad-3'
+    }
+  ]
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-yellow-100 pb-16">
       {/* Header */}
@@ -39,50 +62,25 @@ export default function ListaActividadesAritmetica() {
             </p>
             
             <div className="space-y-4">
-              <Card 
-                className="p-4 hover:bg-blue-50 transition-colors cursor-pointer"
-                onClick={() => navigate('/modulos/aritmetica/actividad-1')}
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium text-gray-800">Actividad 1: Operaciones con números naturales</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Practica sumas, restas, multiplicaciones y divisiones con números naturales.
-                    </p>
-                  </div>
-                  <ChevronRight className="h-5 w-5 text-gray-400" />
-                </div>
-              </Card>
-              
-              <Card 
-                className="p-4 hover:bg-blue-50 transition-colors cursor-pointer"
-                onClick={() => navigate('/modulos/aritmetica/actividad-2')}
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium text-gray-800">Actividad 2: Divisibilidad</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Aprende a aplicar los criterios de divisibilidad y a identificar números primos.
-                    </p>
-                  </div>
-                  <ChevronRight className="h-5 w-5 text-gray-400" />
-                </div>
-              </Card>
-              
-              <Card 
-                className="p-4 hover:bg-blue-50 transition-colors cursor-pointer"
-                onClick={() => navigate('/modulos/aritmetica/actividad-3')}
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="font-medium text-gray-800">Actividad 3: MCD y MCM</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Calcula el máximo común divisor y el mínimo común múltiplo de varios números.
-                    </p>
-                  </div>
-                  <ChevronRight className="h-5 w-5 text-gray-400" />
-                </div>
-              </Card>
+              {actividades.map((actividad) => {
+                const isCompleted = progress?.activityProgress?.aritmetica?.[actividad.id]?.completed || false
+                return (
+                  <Card key={actividad.id} className="p-4 hover:bg-blue-50 transition-colors">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="font-medium text-gray-800">{actividad.titulo}</h3>
+                        <p className="text-sm text-gray-600 mt-1">{actividad.descripcion}</p>
+                      </div>
+                      <button
+                        className={`px-4 py-2 rounded text-white font-semibold ${isCompleted ? 'bg-blue-400 hover:bg-blue-500' : 'bg-blue-600 hover:bg-blue-700'}`}
+                        onClick={() => navigate(actividad.path)}
+                      >
+                        {isCompleted ? 'Repetir' : 'Comenzar'}
+                      </button>
+                    </div>
+                  </Card>
+                )
+              })}
             </div>
           </div>
           

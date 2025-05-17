@@ -126,22 +126,28 @@ export function useProgress() {
   return useContext(ProgressContext)
 }
 
+function recalcularModuleProgress(activityProgress: Progress["activityProgress"]): Progress["moduleProgress"] {
+  const moduleProgress: Progress["moduleProgress"] = {}
+  Object.keys(activityProgress).forEach(moduleId => {
+    const activities = activityProgress[moduleId] || {}
+    const totalActivities = Object.keys(activities).length
+    const completedActivities = Object.values(activities).filter(a => a.completed).length
+    moduleProgress[moduleId] = totalActivities > 0 ? Math.round((completedActivities / totalActivities) * 100) : 0
+  })
+  return moduleProgress
+}
+
 export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth()
   const [progress, setProgress] = useState<Progress>(defaultProgress)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-
-
   useEffect(() => {
-    
-    
     const loadProgress = async () => {
       setLoading(true)
       try {
         if (!user) {
-          
           setProgress(defaultProgress)
           setLoading(false)
           return
@@ -160,10 +166,11 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
               ...defaultProgress.activityProgress,
               ...(data.activityProgress || {})
             },
-            moduleProgress: {
-              ...defaultProgress.moduleProgress,
-              ...(data.moduleProgress || {})
-            },
+            // Recalcular el progreso de cada módulo
+            moduleProgress: recalcularModuleProgress({
+              ...defaultProgress.activityProgress,
+              ...(data.activityProgress || {})
+            }),
             // Asegurar campos de racha
             currentStreak: data.currentStreak || 0,
             bestStreak: data.bestStreak || 0,
@@ -251,7 +258,13 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
         // Primera actividad
         newCurrentStreak = 1
       }
-      
+
+      // Calcular el progreso del módulo
+      const activities = progress.activityProgress[module] || {}
+      const totalActivities = Object.keys(activities).length
+      const completedActivities = Object.values(activities).filter(a => a.completed).length
+      const moduleProgress = totalActivities > 0 ? Math.round((completedActivities / totalActivities) * 100) : 0
+
       const updatedProgress = {
         ...progress,
         activityProgress: {
@@ -260,6 +273,10 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
             ...progress.activityProgress[module],
             [activity]: activityProgress
           }
+        },
+        moduleProgress: {
+          ...progress.moduleProgress,
+          [module]: moduleProgress
         },
         currentStreak: newCurrentStreak,
         bestStreak: newBestStreak,

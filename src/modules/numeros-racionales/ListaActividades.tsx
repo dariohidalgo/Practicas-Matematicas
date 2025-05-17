@@ -31,6 +31,27 @@ export default function ListaActividadesNumerosRacionales() {
   const actividadesCompletadas = progress?.activities?.numerosRacionales || {}
   const moduleProgress = progress?.moduleProgress?.numerosRacionales || 0
 
+  const actividades = [
+    {
+      id: 'actividad-1',
+      titulo: 'Suma de fracciones',
+      descripcion: 'Aprende a sumar fracciones con distinto denominador utilizando el mínimo común múltiplo.',
+      path: '/modulos/numeros-racionales/actividad-1'
+    },
+    {
+      id: 'actividad-2',
+      titulo: 'Multiplicación de fracciones',
+      descripcion: 'Aprende a multiplicar fracciones y a simplificar el resultado.',
+      path: '/modulos/numeros-racionales/actividad-2'
+    },
+    {
+      id: 'actividad-3',
+      titulo: 'División de fracciones',
+      descripcion: 'Aprende a dividir fracciones utilizando el método de la fracción inversa.',
+      path: '/modulos/numeros-racionales/actividad-3'
+    }
+  ]
+
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 pb-16">
       {/* Header */}
@@ -46,61 +67,31 @@ export default function ListaActividadesNumerosRacionales() {
       {/* Module Content */}
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Actividad 1 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">Suma de fracciones</h2>
-              <p className="text-gray-600 mb-4">
-                Aprende a sumar fracciones con distinto denominador utilizando el mínimo común múltiplo.
-              </p>
-              <div className="flex items-center justify-between">
-                <Link to="/modulos/numeros-racionales/actividad-1">
-                  <Button className="bg-green-500 hover:bg-green-600">
-                    <BookOpen className="h-4 w-4 mr-2" />
-                    Comenzar
-                  </Button>
-                </Link>
-                {actividadesCompletadas["actividad-1"]?.completed && (
-                  <div className="flex items-center text-green-600">
-                    <CheckCircle className="h-5 w-5 mr-1" />
-                    <span className="text-sm font-medium">Completado</span>
+          {actividades.map((actividad) => {
+            const isCompleted = actividadesCompletadas[actividad.id]?.completed || false
+            return (
+              <div className="bg-white rounded-xl shadow-md overflow-hidden" key={actividad.id}>
+                <div className="p-6">
+                  <h2 className="text-lg font-bold text-gray-800 mb-2">{actividad.titulo}</h2>
+                  <p className="text-gray-600 mb-4">{actividad.descripcion}</p>
+                  <div className="flex items-center justify-between">
+                    <button
+                      className={`bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded font-semibold ${isCompleted ? 'bg-green-400 hover:bg-green-500' : ''}`}
+                      onClick={() => navigate(actividad.path)}
+                    >
+                      {isCompleted ? 'Repetir' : 'Comenzar'}
+                    </button>
+                    {isCompleted && (
+                      <div className="flex items-center text-green-600">
+                        <CheckCircle className="h-5 w-5 mr-1" />
+                        <span className="text-sm font-medium">Completado</span>
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Actividad 2 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">Multiplicación de fracciones</h2>
-              <p className="text-gray-600 mb-4">
-                Aprende a multiplicar fracciones y a simplificar el resultado.
-              </p>
-              <div className="flex items-center justify-between">
-                <Button className="bg-gray-200 hover:bg-gray-300 text-gray-700" disabled>
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Próximamente
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Actividad 3 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">División de fracciones</h2>
-              <p className="text-gray-600 mb-4">
-                Aprende a dividir fracciones utilizando el método de la fracción inversa.
-              </p>
-              <div className="flex items-center justify-between">
-                <Button className="bg-gray-200 hover:bg-gray-300 text-gray-700" disabled>
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Próximamente
-                </Button>
-              </div>
-            </div>
-          </div>
+            )
+          })}
         </div>
       </div>
     </main>

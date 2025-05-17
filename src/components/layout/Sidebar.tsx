@@ -78,7 +78,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
     >
       <div className="flex h-14 items-center justify-between border-b px-4 lg:hidden">
         <div className="flex items-center space-x-4">
-          <span className="font-bold">Elena</span>
+          <span className="font-bold">Dario-Hidalgo</span>
         </div>
         <Button
           variant="ghost"

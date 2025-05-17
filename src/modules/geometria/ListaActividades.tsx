@@ -46,61 +46,52 @@ export default function ListaActividadesGeometria() {
       {/* Module Content */}
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Actividad 1 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">Cálculo del área de un triángulo</h2>
-              <p className="text-gray-600 mb-4">
-                Aprende a calcular el área de un triángulo utilizando la fórmula correcta.
-              </p>
-              <div className="flex items-center justify-between">
-                <Link to="/modulos/geometria/actividad-1">
-                  <Button className="bg-blue-500 hover:bg-blue-600">
-                    <BookOpen className="h-4 w-4 mr-2" />
-                    Comenzar
-                  </Button>
-                </Link>
-                {actividadesCompletadas["actividad-1"]?.completed && (
-                  <div className="flex items-center text-green-600">
-                    <CheckCircle className="h-5 w-5 mr-1" />
-                    <span className="text-sm font-medium">Completado</span>
+          {["actividad-1","actividad-2","actividad-3"].map((id, idx) => {
+            const actividades = [
+              {
+                id: "actividad-1",
+                titulo: "Cálculo del área de un triángulo",
+                descripcion: "Aprende a calcular el área de un triángulo utilizando la fórmula correcta.",
+                path: "/modulos/geometria/actividad-1"
+              },
+              {
+                id: "actividad-2",
+                titulo: "Perímetro de figuras planas",
+                descripcion: "Aprende a calcular el perímetro de diferentes figuras geométricas.",
+                path: "/modulos/geometria/actividad-2"
+              },
+              {
+                id: "actividad-3",
+                titulo: "Volumen de cuerpos geométricos",
+                descripcion: "Aprende a calcular el volumen de diferentes cuerpos geométricos.",
+                path: "/modulos/geometria/actividad-3"
+              }
+            ];
+            const actividad = actividades[idx];
+            const isCompleted = actividadesCompletadas[actividad.id]?.completed || false;
+            return (
+              <div className="bg-white rounded-xl shadow-md overflow-hidden" key={actividad.id}>
+                <div className="p-6">
+                  <h2 className="text-lg font-bold text-gray-800 mb-2">{actividad.titulo}</h2>
+                  <p className="text-gray-600 mb-4">{actividad.descripcion}</p>
+                  <div className="flex items-center justify-between">
+                    <button
+                      className={`bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded font-semibold ${isCompleted ? 'bg-blue-400 hover:bg-blue-500' : ''}`}
+                      onClick={() => navigate(actividad.path)}
+                    >
+                      {isCompleted ? 'Repetir' : 'Comenzar'}
+                    </button>
+                    {isCompleted && (
+                      <div className="flex items-center text-green-600">
+                        <CheckCircle className="h-5 w-5 mr-1" />
+                        <span className="text-sm font-medium">Completado</span>
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* Actividad 2 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">Perímetro de figuras planas</h2>
-              <p className="text-gray-600 mb-4">
-                Aprende a calcular el perímetro de diferentes figuras geométricas.
-              </p>
-              <div className="flex items-center justify-between">
-                <Button className="bg-gray-200 hover:bg-gray-300 text-gray-700" disabled>
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Próximamente
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Actividad 3 */}
-          <div className="bg-white rounded-xl shadow-md overflow-hidden">
-            <div className="p-6">
-              <h2 className="text-lg font-bold text-gray-800 mb-2">Volumen de cuerpos geométricos</h2>
-              <p className="text-gray-600 mb-4">
-                Aprende a calcular el volumen de diferentes cuerpos geométricos.
-              </p>
-              <div className="flex items-center justify-between">
-                <Button className="bg-gray-200 hover:bg-gray-300 text-gray-700" disabled>
-                  <BookOpen className="h-4 w-4 mr-2" />
-                  Próximamente
-                </Button>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </div>
     </main>

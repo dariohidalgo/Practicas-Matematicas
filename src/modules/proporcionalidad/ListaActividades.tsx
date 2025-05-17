@@ -62,8 +62,7 @@ export default function ListaActividades() {
             return (
               <Card
                 key={actividad.id}
-                className="p-6 cursor-pointer hover:shadow-lg transition-shadow"
-                onClick={() => navigate(actividad.path)}
+                className="p-6 hover:shadow-lg transition-shadow"
               >
                 <h3 className="text-xl font-semibold mb-2 text-gray-900">{actividad.titulo}</h3>
                 <p className="text-gray-600 mb-4">{actividad.descripcion}</p>
@@ -71,6 +70,16 @@ export default function ListaActividades() {
                   <span className="text-green-600 font-medium">
                     {actividad.puntos} puntos
                   </span>
+                  <div>
+                    <button
+                      className={`px-4 py-2 rounded text-white font-semibold ${isCompleted ? 'bg-indigo-400 hover:bg-indigo-500' : 'bg-indigo-600 hover:bg-indigo-700'}`}
+                      onClick={() => navigate(actividad.path)}
+                    >
+                      {isCompleted ? 'Repetir' : 'Comenzar'}
+                    </button>
+                  </div>
+                </div>
+                <div className="flex justify-end mt-2">
                   {isCompleted ? (
                     <div className="flex items-center space-x-2">
                       <span className="text-green-600">{score}%</span>

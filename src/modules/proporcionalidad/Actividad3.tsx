@@ -6,6 +6,8 @@ import { Input } from "../../components/ui/input"
 import { useAuth } from "../../contexts/auth-context"
 import { useProgress } from "../../contexts/progress-context"
 import ModuleHeader from "../../components/ModuleHeader"
+import Modal from '../../components/ui/Modal'
+import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 
 export default function ActividadProporcionalidad3() {
   const { user, loading: authLoading } = useAuth()
@@ -19,6 +21,7 @@ export default function ActividadProporcionalidad3() {
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null)
   const [intentos, setIntentos] = useState(0)
   const [completed, setCompleted] = useState(false)
+  const [openCalc, setOpenCalc] = useState(false)
   
   // Datos del problema de proporcionalidad inversa
   const trabajadoresOriginales = 6
@@ -88,7 +91,7 @@ export default function ActividadProporcionalidad3() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100 pb-16">
       {/* Header */}
-      <ModuleHeader title="Proporcionalidad inversa" backPath="/modulos/proporcionalidad" />
+      <ModuleHeader title="Proporcionalidad inversa" backPath="/modulos/proporcionalidad/actividades" />
 
       {/* Contenido */}
       <div className="container mx-auto py-8 px-4">
@@ -148,9 +151,14 @@ export default function ActividadProporcionalidad3() {
                 </div>
               </div>
               
-              <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700" disabled={completed}>
-                Verificar respuestas
-              </Button>
+              <div className="flex gap-4">
+                <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700" disabled={completed}>
+                  Verificar respuestas
+                </Button>
+                <Button type="button" className="bg-indigo-600 hover:bg-indigo-700" onClick={() => setOpenCalc(true)}>
+                  Usar calculadora
+                </Button>
+              </div>
             </form>
             
             {feedback === "correct" && (
@@ -216,6 +224,9 @@ export default function ActividadProporcionalidad3() {
           </div>
         </div>
       </div>
+      <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
+        <CalculadoraInteractiva sinHeader />
+      </Modal>
     </main>
   )
 }

@@ -45,7 +45,7 @@ export default function Register() {
     <>
       <SEO 
         title="Crear cuenta" 
-        description="Regístrate en la plataforma educativa Elena para comenzar tu aprendizaje de matemáticas."
+        description="Regístrate en la plataforma educativa  para comenzar tu aprendizaje de matemáticas."
         keywords="registro, crear cuenta, matemáticas, educación"
         url="https://matematicas-732ff.web.app/register"
       />

@@ -22,3 +22,17 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build output
+build/
+coverage/
+
+# Local env files
+.env
+.env.*.local
+
+# Mac system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
