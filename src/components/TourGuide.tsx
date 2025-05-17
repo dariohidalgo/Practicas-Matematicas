@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { driver } from 'driver.js';
 import 'driver.js/dist/driver.css';
 
@@ -14,11 +14,21 @@ interface TourStep {
 interface TourGuideProps {
   steps: TourStep[];
   tourKey: string; // clave para almacenamiento local
-  showButton?: boolean; // opcional, por defecto false
 }
 
-export const TourGuide: React.FC<TourGuideProps> = ({ steps, tourKey, showButton = false }) => {
+export const TourGuide = forwardRef(function TourGuide(
+  { steps, tourKey }: TourGuideProps,
+  ref
+) {
   const driverRef = useRef<any>(null);
+
+  useImperativeHandle(ref, () => ({
+    startTour: () => {
+      if (driverRef.current) {
+        driverRef.current.drive();
+      }
+    }
+  }));
 
   useEffect(() => {
     driverRef.current = driver({
@@ -26,7 +36,6 @@ export const TourGuide: React.FC<TourGuideProps> = ({ steps, tourKey, showButton
       steps,
       allowClose: true,
       doneBtnText: 'Terminar',
-    
       nextBtnText: 'Siguiente',
       prevBtnText: 'Anterior'
     });
@@ -44,18 +53,5 @@ export const TourGuide: React.FC<TourGuideProps> = ({ steps, tourKey, showButton
     };
   }, [steps, tourKey]);
 
-  const startTour = () => {
-    if (driverRef.current) {
-      driverRef.current.drive();
-    }
-  };
-
-  return showButton ? (
-    <button
-      onClick={startTour}
-      className="fixed bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 z-50"
-    >
-      Repetir Tour
-    </button>
-  ) : null;
-};
+  return null;
+});

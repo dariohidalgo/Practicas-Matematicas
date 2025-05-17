@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Check, X,  ChevronRight } from 'lucide-react'
 import { useAuth } from '../../contexts/auth-context'
-import { useProgress } from '../../contexts/progress-context'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
@@ -24,16 +23,15 @@ interface Pregunta {
 
 export default function ActividadMCDMCM() {
   const { user, loading: authLoading } = useAuth()
-  const { updateActivityProgress, updateModuleProgress, addPoints } = useProgress()
   const navigate = useNavigate()
   
   const [preguntas, setPreguntas] = useState<Pregunta[]>([])
-  const [preguntaActual, setPreguntaActual] = useState(0)
+  const [preguntaActual] = useState(0)
   const [respuestaUsuario, setRespuestaUsuario] = useState('')
-  const [estadoRespuesta, setEstadoRespuesta] = useState<'pendiente' | 'correcta' | 'incorrecta'>('pendiente')
-  const [mostrarExplicacion, setMostrarExplicacion] = useState(false)
-  const [puntuacion, setPuntuacion] = useState(0)
-  const [actividadCompletada, setActividadCompletada] = useState(false)
+  const [estadoRespuesta] = useState<'pendiente' | 'correcta' | 'incorrecta'>('pendiente')
+  const [mostrarExplicacion] = useState(false)
+  const [puntuacion] = useState(0)
+  const [actividadCompletada] = useState(false)
   const [openCalc, setOpenCalc] = useState(false)
   
   // Redirect to login if not authenticated
@@ -108,44 +106,6 @@ export default function ActividadMCDMCM() {
     
     setPreguntas(generarPreguntas())
   }, [])
-  
-  const verificarRespuesta = () => {
-    if (!respuestaUsuario) return
-    
-    const respuestaNum = parseInt(respuestaUsuario)
-    const esCorrecta = respuestaNum === preguntas[preguntaActual].respuestaCorrecta
-    
-    setEstadoRespuesta(esCorrecta ? 'correcta' : 'incorrecta')
-    setMostrarExplicacion(true)
-    
-    if (esCorrecta) {
-      setPuntuacion(prev => prev + 1)
-    }
-  }
-  
-  const siguientePregunta = () => {
-    setEstadoRespuesta('pendiente')
-    setMostrarExplicacion(false)
-    setRespuestaUsuario('')
-    
-    if (preguntaActual < preguntas.length - 1) {
-      setPreguntaActual(prev => prev + 1)
-    } else {
-      // Actividad completada
-      setActividadCompletada(true)
-      
-      // Guardar progreso
-      const porcentaje = Math.round((puntuacion / preguntas.length) * 100)
-      updateActivityProgress("aritmetica", "actividad-3", { 
-        completed: true, 
-        score: porcentaje 
-      }).then(() => {
-        updateModuleProgress("aritmetica", porcentaje)
-        // Dar puntos al usuario
-        addPoints(puntuacion * 10)
-      })
-    }
-  }
   
   // Mostrar cargando mientras se verifica la autenticación
   if (authLoading || !user || preguntas.length === 0) {

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronRight } from 'lucide-react'
 import { Card } from '../../components/ui/card'
 import { useAuth } from '../../contexts/auth-context'
 import ModuleHeader from '../../components/ModuleHeader'

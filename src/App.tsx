@@ -4,7 +4,6 @@ import Dashboard from "./pages/Dashboard"
 import Perfil from "./pages/Perfil"
 import ListaActividades from "./modules/proporcionalidad/ListaActividades"
 import { ProgressProvider } from "./contexts/progress-context"
-import { TourGuide } from "./components/TourGuide"
 
 // Importaciones de números naturales
 import IntroduccionNaturales from "./modules/numeros-naturales/Introduccion"
@@ -146,7 +145,6 @@ function App() {
             <Route path="/modulos/numeros-racionales/actividad-2" element={<Actividad2NumerosRacionales />} />
             <Route path="/modulos/numeros-racionales/actividad-3" element={<Actividad3NumerosRacionales />} />
           </Routes>
-          <TourGuide steps={tourSteps} tourKey="main-tour" />
         </Router>
       </div>
     </ProgressProvider>

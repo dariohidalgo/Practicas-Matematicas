@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Award, TrendingUp, Ruler, Percent, Search } from 'lucide-react'
 import { useAuth } from '../contexts/auth-context'
@@ -99,6 +99,7 @@ export default function Dashboard() {
   const { progress, loading: progressLoading } = useProgress()
   const [searchQuery, setSearchQuery] = useState('')
   const [userAchievements, setUserAchievements] = useState(achievements)
+  const tourRef = useRef<any>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -149,6 +150,33 @@ export default function Dashboard() {
            normalizedDescription.includes(normalizedQuery);
   })
 
+  const tourSteps = [
+    {
+      element: "#tour-header",
+      popover: {
+        title: "Barra de Navegación",
+        description: "Aquí encontrarás los módulos principales de la aplicación",
+        position: "bottom" as const
+      }
+    },
+    {
+      element: "#tour-modulo-aritmetica",
+      popover: {
+        title: "Tus módulos",
+        description: "Aquí puedes acceder a los diferentes módulos de matemáticas. Haz clic en cualquiera para comenzar a aprender.",
+        position: "top" as const
+      }
+    },
+    {
+      element: "#dashboard-perfil-link",
+      popover: {
+        title: "Perfil",
+        description: "Administra tu información personal y configuración",
+        position: "left" as const
+      }
+    }
+  ];
+
   return (
     <>
       <SEO 
@@ -168,7 +196,7 @@ export default function Dashboard() {
                   <p className="text-xl md:text-2xl font-bold text-green-600">{progress?.points || 0}</p>
                 </div>
                 <Link to="/perfil">
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" size="icon" id="dashboard-perfil-link">
                     <Award className="h-5 w-5" />
                   </Button>
                 </Link>
@@ -256,44 +284,14 @@ export default function Dashboard() {
           </div>
         </main>
       </div>
-      <TourGuide
-        tourKey="dashboard-tour"
-        showButton={true}
-        steps={[
-          {
-            element: '#tour-header',
-            popover: {
-              title: 'Bienvenido al Dashboard',
-              description: 'Aquí puedes ver tus módulos, puntos y perfil de usuario.',
-              position: 'bottom'
-            }
-          },
-          {
-            element: '#tour-buscador',
-            popover: {
-              title: 'Buscador de Módulos',
-              description: 'Encuentra rápidamente el módulo que estás buscando.',
-              position: 'bottom'
-            }
-          },
-          {
-            element: '#tour-modulo-aritmetica',
-            popover: {
-              title: 'Primer Módulo',
-              description: 'Este es un módulo de ejemplo. Haz clic para comenzar.',
-              position: 'top'
-            }
-          },
-          {
-            element: '#tour-perfil',
-            popover: {
-              title: 'Perfil',
-              description: 'Este es tu perfil de usuario. Aqui podras ver tus progresos y logros.',
-              position: 'top'
-            }
-          }
-        ]}
-      />
+      <TourGuide ref={tourRef} steps={tourSteps} tourKey="main-tour" />
+      <button
+        onClick={() => tourRef.current?.startTour()}
+        className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow-lg font-semibold text-sm"
+        aria-label="Repetir tour"
+      >
+        Repetir tour
+      </button>
     </>
   )
 }

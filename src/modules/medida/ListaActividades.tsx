@@ -54,7 +54,7 @@ export default function ListaActividadesMedida() {
       {/* Module Content */}
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {["actividad-1","actividad-2","actividad-3"].map((id, idx) => {
+          {["actividad-1","actividad-2","actividad-3"].map((_, idx) => {
             const actividades = [
               {
                 id: "actividad-1",

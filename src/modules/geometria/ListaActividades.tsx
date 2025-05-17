@@ -1,7 +1,6 @@
 import { useEffect } from "react"
-import { useNavigate, Link } from "react-router-dom"
-import { BookOpen, Award, CheckCircle } from "lucide-react"
-import { Button } from "../../components/ui/button"
+import { useNavigate } from "react-router-dom"
+import { Award, CheckCircle } from "lucide-react"
 import { useAuth } from "../../contexts/auth-context"
 import { useProgress } from "../../contexts/progress-context"
 import ModuleHeader from "../../components/ModuleHeader"
@@ -46,7 +45,7 @@ export default function ListaActividadesGeometria() {
       {/* Module Content */}
       <div className="container mx-auto py-8 px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {["actividad-1","actividad-2","actividad-3"].map((id, idx) => {
+          {["actividad-1","actividad-2","actividad-3"].map((_, idx) => {
             const actividades = [
               {
                 id: "actividad-1",
