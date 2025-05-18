@@ -10,6 +10,7 @@ import ModuleHeader from '../../components/ModuleHeader'
 import { SEO } from '../../components/seo/SEO'
 import Modal from '../../components/ui/Modal'
 import CalculadoraInteractiva from './CalculadoraInteractiva'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 interface Pregunta {
   id: number
@@ -251,6 +252,7 @@ export default function ActividadDivisibilidad() {
                 <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
                   <CalculadoraInteractiva sinHeader />
                 </Modal>
+                <PizarraPaint />
               </div>
             ) : (
               <div className="bg-white rounded-lg shadow-sm p-6 text-center">

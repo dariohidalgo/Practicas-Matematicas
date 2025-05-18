@@ -9,6 +9,7 @@ import { Progress } from '../../components/ui/progress'
 import ModuleHeader from '../../components/ModuleHeader'
 import Modal from '../../components/ui/Modal'
 import CalculadoraInteractiva from './CalculadoraInteractiva'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 interface Pregunta {
   id: number
@@ -196,6 +197,7 @@ export default function ActividadAritmetica() {
                     className="w-full"
                   />
                 </div>
+                <PizarraPaint />
                 
                 {estadoRespuesta === 'pendiente' ? (
                   <div className="flex space-x-4">

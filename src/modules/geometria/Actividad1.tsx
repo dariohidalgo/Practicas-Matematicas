@@ -5,6 +5,7 @@ import ModuleHeader from '../../components/ModuleHeader'
 import { Button } from '../../components/ui/button'
 import { Link } from 'react-router-dom'
 import { useProgress } from '../../contexts/progress-context'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 const figuras = [
   { nombre: 'Triángulo', svg: <svg width="60" height="60"><polygon points="30,10 10,50 50,50" fill="#fbbf24" stroke="#333" strokeWidth="2" /></svg> },
@@ -93,6 +94,7 @@ export default function Actividad1Geometria() {
               </Button>
             </div>
           </form>
+          <PizarraPaint />
           {resultado && (
             <div className="mt-6">
               <div className="text-lg font-semibold text-green-700 mb-4">{resultado}</div>

@@ -1,15 +1,15 @@
-import  { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { HelpCircle, BookOpen, Lightbulb, CheckCircle, XCircle } from 'lucide-react'
+import { CheckCircle, XCircle, Lightbulb } from 'lucide-react'
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import ModuleHeader from '../../components/ModuleHeader'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../components/ui/tabs'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../components/ui/dialog'
-import { useAuth } from '../../contexts/auth-context'
-import { useProgress } from '../../contexts/progress-context'
+import { Tabs, TabsContent} from '../../components/ui/tabs'
 import Modal from '../../components/ui/Modal'
 import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
+import { useAuth } from '../../contexts/auth-context'
+import { useProgress } from '../../contexts/progress-context'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 export default function ActividadNumerosRacionales() {
   const { user, loading: authLoading } = useAuth()
@@ -23,6 +23,7 @@ export default function ActividadNumerosRacionales() {
   const [activeTab, setActiveTab] = useState("problema")
   const [showFeedback, setShowFeedback] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
+  const [showHint, setShowHint] = useState(false)
   const [values, setValues] = useState({
     dividendo: "",
     divisor: "",
@@ -136,45 +137,16 @@ export default function ActividadNumerosRacionales() {
     <main className="min-h-screen bg-gradient-to-b from-blue-50 to-green-50 pb-16">
       {/* Header */}
       <ModuleHeader title="Números Racionales" backPath="/modulos/numeros-racionales/actividades">
-        <div className="ml-auto flex gap-2">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <HelpCircle className="h-5 w-5 text-gray-600" />
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Ayuda</DialogTitle>
-                  <DialogDescription>
-                    En esta actividad debes sumar dos fracciones utilizando el método del mínimo común múltiplo (mcm).
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="mt-4">
-                  <h4 className="font-medium text-sm">Pistas:</h4>
-                  <ul className="list-disc pl-5 text-sm mt-2 space-y-1">
-                    <li>Para sumar fracciones con distinto denominador, primero debes hallar el mcm de los denominadores</li>
-                    <li>Luego, multiplica cada numerador por el resultado de dividir el mcm entre su denominador</li>
-                    <li>Suma los nuevos numeradores y mantén el mcm como denominador</li>
-                    <li>Finalmente, simplifica la fracción si es posible</li>
-                  </ul>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </div>
+      
       </ModuleHeader>
 
       {/* Activity Content */}
-      <div className="container mx-auto py-6 px-4">
+      <div className="max-w-3xl mx-auto py-6 px-4">
         <div className="bg-white rounded-xl shadow-md p-6">
           <h2 className="text-lg font-bold text-gray-800 mb-4">Actividad: Suma de fracciones</h2>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 gap-4">
-              <TabsTrigger value="problema">Problema</TabsTrigger>
-              <TabsTrigger value="anotador">Anotador</TabsTrigger>
-            </TabsList>
-
+           
             <TabsContent value="problema" className="pt-4">
               <div className="space-y-6">
                 <div className="bg-green-50 p-4 rounded-lg">
@@ -182,11 +154,9 @@ export default function ActividadNumerosRacionales() {
                     Calcula la suma de las fracciones 2/3 y 1/4. Escribe el resultado como una fracción simplificada.
                   </p>
                 </div>
-
                 <div className="flex flex-col items-center">
                   <div className="relative border-2 border-gray-300 rounded-lg p-6 w-full max-w-md">
                     <div className="absolute -top-3 left-4 bg-white px-2 text-sm text-gray-600">Suma de fracciones</div>
-
                     <div className="flex items-center justify-center gap-4 mb-6">
                       <div className="flex flex-col items-center">
                         <Input
@@ -244,19 +214,7 @@ export default function ActividadNumerosRacionales() {
                     </div>
                   </div>
                 </div>
-
-                <div className="flex justify-between items-center mt-6">
-                  <div className="bg-blue-50 p-4 rounded-lg w-full">
-                    <h4 className="font-medium text-blue-800 mb-2">Pista para sumar fracciones:</h4>
-                    <ul className="list-disc pl-5 text-sm text-blue-700 space-y-1">
-                      <li>Para sumar fracciones con distinto denominador, primero debes hallar el mcm de los denominadores</li>
-                      <li>Luego, multiplica cada numerador por el resultado de dividir el mcm entre su denominador</li>
-                      <li>Suma los nuevos numeradores y mantén el mcm como denominador</li>
-                      <li>Finalmente, simplifica la fracción si es posible</li>
-                    </ul>
-                  </div>
-                </div>
-
+              
                 <div className="flex gap-4 mt-6">
                   <Button
                     onClick={checkAnswers}
@@ -271,92 +229,52 @@ export default function ActividadNumerosRacionales() {
                   >
                     Usar calculadora
                   </Button>
+                  <div className="flex justify-between items-center ">
+                  <Button
+                    onClick={() => setShowHint(!showHint)}
+                    variant="outline"
+                    className="flex items-center gap-2"
+                  >
+                    <Lightbulb className="w-4 h-4" />
+                    {showHint ? "Ocultar pista" : "Mostrar pista"}
+                  </Button>
                 </div>
-
+                </div>
+          
+                {showHint && (
+                  <div className="bg-blue-50 p-4 rounded-lg w-full mt-4">
+                    <h4 className="font-medium text-blue-800 mb-2">Pista para sumar fracciones:</h4>
+                    <ul className="list-disc pl-5 text-sm text-blue-700 space-y-1">
+                      <li>Para sumar fracciones con distinto denominador, primero debes hallar el mcm de los denominadores</li>
+                      <li>Luego, multiplica cada numerador por el resultado de dividir el mcm entre su denominador</li>
+                      <li>Suma los nuevos numeradores y mantén el mcm como denominador</li>
+                      <li>Finalmente, simplifica la fracción si es posible</li>
+                    </ul>
+                  </div>
+                )}
+                <PizarraPaint />
                 {showFeedback && (
-                  <div className={`p-4 rounded-lg mt-4 ${isCorrect ? "bg-green-50" : "bg-red-50"}`}>
-                    <div className="flex items-start gap-3">
+                  <div className={`mt-4 p-4 rounded-lg ${isCorrect ? 'bg-green-100' : 'bg-red-100'}`}>
+                    <div className="flex items-center gap-2">
                       {isCorrect ? (
-                        <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
+                        <>
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          <span className="text-green-700">¡Respuesta correcta!</span>
+                        </>
                       ) : (
-                        <XCircle className="h-5 w-5 text-red-500 mt-0.5" />
+                        <>
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          <span className="text-red-700">Respuesta incorrecta. Inténtalo de nuevo.</span>
+                        </>
                       )}
-                      <div>
-                        <h3 className={`font-medium ${isCorrect ? "text-green-700" : "text-red-700"}`}>
-                          {isCorrect ? "¡Muy bien!" : "Revisa tus respuestas"}
-                        </h3>
-                        <p className="text-sm mt-1">
-                          {isCorrect
-                            ? `¡Correcto! La división ${values.dividendo} ÷ ${values.divisor} tiene cociente 21 y resto 8.`
-                            : "Tu respuesta no es correcta. Recuerda que el dividendo debe ser igual al divisor multiplicado por el cociente, más el resto."}
-                        </p>
-                        {!isCorrect && (
-                          <p className="text-sm mt-2">
-                            Sugerencia: Prueba usando la fórmula Dividendo = Divisor × 21 + 8
-                          </p>
-                        )}
-                        {isCorrect && (
-                          <div className="mt-3">
-                            <Button onClick={() => navigate("/modulos/numeros-naturales")}>Volver al módulo</Button>
-                          </div>
-                        )}
-                      </div>
                     </div>
                   </div>
                 )}
               </div>
             </TabsContent>
-
-            <TabsContent value="anotador" className="pt-4">
-              <div className="space-y-4">
-                <p className="text-sm text-gray-600">
-                  Usa este espacio para anotar tus ideas, cálculos y estrategias para resolver el problema.
-                </p>
-
-                <textarea
-                  className="w-full h-64 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
-                  placeholder="Escribe aquí tus anotaciones, cálculos y estrategias..."
-                  value={values.anotador}
-                  onChange={(e) => handleInputChange("anotador", e.target.value)}
-                ></textarea>
-
-                <div className="bg-yellow-50 p-3 rounded-lg">
-                  <p className="text-sm text-gray-700">
-                    <span className="font-medium">Sugerencia:</span> Explica cómo encontraste el dividendo y el divisor.
-                    ¿Qué relación matemática utilizaste? ¿Hay más de una respuesta posible?
-                  </p>
-                </div>
-              </div>
-            </TabsContent>
           </Tabs>
         </div>
       </div>
-
-      {/* Resources */}
-      <div className="container mx-auto px-4 mt-6">
-        <h3 className="text-lg font-medium text-gray-800 mb-3">Recursos de apoyo</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white rounded-lg shadow-sm p-4 flex items-start gap-3">
-            <BookOpen className="h-5 w-5 text-orange-600 mt-0.5" />
-            <div>
-              <h4 className="font-medium text-gray-800">División de números naturales</h4>
-              <p className="text-sm text-gray-600 mt-1">
-                Repasa los conceptos de dividendo, divisor, cociente y resto.
-              </p>
-            </div>
-          </div>
-          <div className="bg-white rounded-lg shadow-sm p-4 flex items-start gap-3">
-            <Lightbulb className="h-5 w-5 text-amber-500 mt-0.5" />
-            <div>
-              <h4 className="font-medium text-gray-800">Propiedades de la división</h4>
-              <p className="text-sm text-gray-600 mt-1">
-                Aprende sobre las propiedades de la división y cómo aplicarlas.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <Modal open={openCalc} onClose={() => setOpenCalc(false)}>
         <CalculadoraInteractiva sinHeader />
       </Modal>

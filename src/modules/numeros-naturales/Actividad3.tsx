@@ -9,6 +9,7 @@ import { useProgress } from '../../contexts/progress-context'
 import ModuleHeader from '../../components/ModuleHeader'
 import Modal from '../../components/ui/Modal'
 import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 export default function ActividadNaturales3() {
   const { user, loading: authLoading } = useAuth()
@@ -207,7 +208,7 @@ export default function ActividadNaturales3() {
                     <CalculadoraInteractiva sinHeader />
                   </Modal>
                 </form>
-                
+                <PizarraPaint />
                 {showFeedback && (
                   <div className={`mt-6 p-4 ${isCorrect ? 'bg-green-50' : 'bg-red-50'} rounded-lg flex items-start`}>
                     {isCorrect ? (

@@ -54,33 +54,6 @@ import Actividad3Geometria from "./modules/geometria/Actividad3"
 import Actividad2Medida from "./modules/medida/Actividad2"
 import Actividad3Medida from "./modules/medida/Actividad3"
 
-const tourSteps = [
-  {
-    element: "#header",
-    popover: {
-      title: "Barra de Navegación",
-      description: "Aquí encontrarás los módulos principales de la aplicación",
-      position: "bottom" as const
-    }
-  },
-  {
-    element: "#dashboard-link",
-    popover: {
-      title: "Dashboard",
-      description: "Accede a tu panel principal con estadísticas y progreso",
-      position: "right" as const
-    }
-  },
-  {
-    element: "#perfil-link",
-    popover: {
-      title: "Perfil",
-      description: "Administra tu información personal y configuración",
-      position: "left" as const
-    }
-  }
-];
-
 function App() {
   return (
     <ProgressProvider>

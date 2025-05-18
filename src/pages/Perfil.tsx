@@ -285,7 +285,6 @@ export default function Perfil() {
     </div>
     <TourGuide
       tourKey="dashboard-tour"
-      showButton={false}
       steps={[
         {
           element: '#tour-header',

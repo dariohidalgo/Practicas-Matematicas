@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Modal from '../../components/ui/Modal'
 import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 import ModuleHeader from '../../components/ModuleHeader'
 import { Button } from '../../components/ui/button'
 import { useProgress } from '../../contexts/progress-context'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 const ejercicios = [
   {
@@ -31,6 +32,7 @@ export default function Actividad2Medida() {
   const [openCalc, setOpenCalc] = useState(false)
   const [respuestasIncorrectas, setRespuestasIncorrectas] = useState<number[]>([])
   const { updateActivityProgress, addPoints } = useProgress()
+  const navigate = useNavigate()
 
   const checkAnswers = async () => {
     let correctas = 0
@@ -45,8 +47,21 @@ export default function Actividad2Medida() {
     setRespuestasIncorrectas(incorrectas)
     if (correctas === ejercicios.length) {
       setResultado('¡Muy bien! Respondiste correctamente todas las conversiones.')
-      await updateActivityProgress('medida', 'actividad-2', { completed: true, score: 100 })
-      await addPoints(10)
+      try {
+        await updateActivityProgress('medida', 'actividad-2', { completed: true, score: 100 })
+        await addPoints(10)
+        
+        // Esperar a que se complete la actualización
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        
+        // Redirigir después de la actualización
+        setTimeout(() => {
+          navigate("/modulos/medida")
+        }, 2000)
+      } catch (error) {
+        console.error("Error al actualizar el progreso:", error)
+        alert("Hubo un error al guardar tu progreso. Por favor, inténtalo de nuevo.")
+      }
     } else {
       setResultado(`Respondiste correctamente ${correctas} de ${ejercicios.length} conversiones. ¡Intenta de nuevo!`)
     }
@@ -56,7 +71,7 @@ export default function Actividad2Medida() {
     <main className="min-h-screen bg-gradient-to-b from-purple-50 to-purple-100 pb-16">
       <ModuleHeader title="Actividad 2: Conversión de unidades" backPath="/modulos/medida/actividades" />
       <div className="container mx-auto py-8 px-4">
-        <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6">
+        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-bold mb-4 text-purple-700">Convierte las siguientes unidades</h2>
           <form className="space-y-6" onSubmit={e => { e.preventDefault(); checkAnswers() }}>
             {ejercicios.map((ej, i) => (
@@ -96,6 +111,7 @@ export default function Actividad2Medida() {
               </Button>
             </div>
           </form>
+          <PizarraPaint />
           {resultado && (
             <div className="mt-6">
               <div className="text-lg font-semibold text-green-700 mb-4">{resultado}</div>

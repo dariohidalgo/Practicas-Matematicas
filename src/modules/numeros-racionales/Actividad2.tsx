@@ -5,6 +5,8 @@ import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 import ModuleHeader from '../../components/ModuleHeader'
 import { Button } from '../../components/ui/button'
 import { useProgress } from '../../contexts/progress-context'
+import PizarraPaint from '../../components/ui/PizarraPaint'
+import { Lightbulb } from 'lucide-react'
 
 const ejercicios = [
   {
@@ -26,6 +28,7 @@ export default function Actividad2NumerosRacionales() {
   const [resultado, setResultado] = useState<string | null>(null)
   const [openCalc, setOpenCalc] = useState(false)
   const [respuestasIncorrectas, setRespuestasIncorrectas] = useState<number[]>([])
+  const [showHint, setShowHint] = useState(false)
   const { updateActivityProgress, addPoints } = useProgress()
   const location = useLocation()
   
@@ -58,15 +61,6 @@ export default function Actividad2NumerosRacionales() {
       <div className="container mx-auto py-8 px-4">
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-md p-6">
           <h2 className="text-xl font-bold mb-4 text-green-700">Resuelve las siguientes multiplicaciones de fracciones</h2>
-          <div className="bg-blue-50 p-4 rounded-lg mb-6">
-            <h4 className="font-medium text-blue-800 mb-2">Pista para multiplicar fracciones:</h4>
-            <ul className="list-disc pl-5 text-sm text-blue-700 space-y-1">
-              <li>Para multiplicar fracciones, multiplica los numeradores entre sí</li>
-              <li>Luego multiplica los denominadores entre sí</li>
-              <li>El resultado será una nueva fracción con el producto de los numeradores como numerador y el producto de los denominadores como denominador</li>
-              <li>Finalmente, simplifica la fracción si es posible</li>
-            </ul>
-          </div>
           <form className="space-y-6" onSubmit={e => { e.preventDefault(); checkAnswers() }}>
             {ejercicios.map((ej, i) => (
               <div key={i} className="flex items-center gap-4">
@@ -103,8 +97,29 @@ export default function Actividad2NumerosRacionales() {
               <Button type="button" className="bg-green-600 hover:bg-green-700 text-white" onClick={() => setOpenCalc(true)}>
                 Usar calculadora
               </Button>
+              <Button
+                type="button"
+                variant="outline"
+                className="flex items-center gap-2"
+                onClick={() => setShowHint(!showHint)}
+              >
+                <Lightbulb className="w-4 h-4" />
+                {showHint ? "Ocultar pista" : "Mostrar pista"}
+              </Button>
             </div>
           </form>
+          {showHint && (
+            <div className="bg-blue-50 p-4 rounded-lg mb-6 mt-6">
+              <h4 className="font-medium text-blue-800 mb-2">Pista para multiplicar fracciones:</h4>
+              <ul className="list-disc pl-5 text-sm text-blue-700 space-y-1">
+                <li>Para multiplicar fracciones, multiplica los numeradores entre sí</li>
+                <li>Luego multiplica los denominadores entre sí</li>
+                <li>El resultado será una nueva fracción con el producto de los numeradores como numerador y el producto de los denominadores como denominador</li>
+                <li>Finalmente, simplifica la fracción si es posible</li>
+              </ul>
+            </div>
+          )}
+          <PizarraPaint />
           {resultado && (
             <div className="mt-6">
               <div className="text-lg font-semibold text-green-700 mb-4">{resultado}</div>

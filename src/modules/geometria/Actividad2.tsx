@@ -5,6 +5,7 @@ import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 import ModuleHeader from '../../components/ModuleHeader'
 import { Button } from '../../components/ui/button'
 import { useProgress } from '../../contexts/progress-context'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 const figuras = [
   {
@@ -136,6 +137,7 @@ export default function Actividad2Geometria() {
               </Button>
             </div>
           </form>
+          <PizarraPaint />
           {resultado && (
             <div className="mt-6">
               <div className="text-lg font-semibold text-green-700 mb-4">{resultado}</div>

@@ -8,6 +8,7 @@ import { useProgress } from "../../contexts/progress-context"
 import ModuleHeader from "../../components/ModuleHeader"
 import Modal from '../../components/ui/Modal'
 import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
+import PizarraPaint from '../../components/ui/PizarraPaint'
 
 export default function ActividadProporcionalidad3() {
   const { user, loading: authLoading } = useAuth()
@@ -160,7 +161,7 @@ export default function ActividadProporcionalidad3() {
                 </Button>
               </div>
             </form>
-            
+            <PizarraPaint />
             {feedback === "correct" && (
               <div className="mt-6 p-4 bg-green-50 rounded-lg flex items-start">
                 <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5" />
