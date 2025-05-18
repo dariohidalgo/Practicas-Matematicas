@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Modal from '../../components/ui/Modal'
 import CalculadoraInteractiva from '../aritmetica/CalculadoraInteractiva'
 import ModuleHeader from '../../components/ModuleHeader'
 import { Button } from '../../components/ui/button'
 import { useProgress } from '../../contexts/progress-context'
 import PizarraPaint from '../../components/ui/PizarraPaint'
-import { useAuth } from '../../contexts/auth-context'
-import { useLocation } from 'react-router-dom'
 
 const ejercicios = [
   {
@@ -36,8 +34,6 @@ export default function ActividadMedida() {
   const [isLoading, setIsLoading] = useState(false)
   const [isCompleted, setIsCompleted] = useState(false)
   const { updateActivityProgress, addPoints, progress } = useProgress()
-  const { user, loading: authLoading } = useAuth()
-  const location = useLocation()
 
   useEffect(() => {
     // Verificar si la actividad ya está completada
